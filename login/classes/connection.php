@@ -2,7 +2,7 @@
 abstract class Database {
     protected PDO $PDO; 
 
-    public function __construct($host = "localhost", $dbname = "login", $username = "root", $password = "") {
+    public function __construct($host = "localhost", $dbname = "Eventify", $username = "root", $password = "") {
         try {
             $this->PDO = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
             $this->PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -1,10 +1,5 @@
-nieuwe manager?
-
-
 <?php
-// MBOcinema/classes/UserManager.php
 
-// Correct pad van 'classes' naar 'PROJECT'
 require_once 'connection.php';
 
 class UserManager extends Database {
@@ -12,7 +7,6 @@ class UserManager extends Database {
         parent::__construct();
     }
 
-    // Nieuwe methode om gebruiker te verifiëren
     public function verifyUser(string $username, string $password): ?array {
         $stmt = $this->getConnection()->prepare("SELECT ID, username, password FROM users WHERE username = :username");
         $stmt->bindParam(':username', $username);
@@ -24,10 +18,10 @@ class UserManager extends Database {
             unset($user['password']); // Verwijder het gehashte wachtwoord uit het array
             return $user;
         }
-        return null; // Gebruiker niet gevonden of wachtwoord klopt niet
+        return null;
     }
 
-    // Bestaande methodes...
+
     public function getAllUsers(): array {
         $stmt = $this->getConnection()->prepare("SELECT ID, Username FROM users");
         if ($stmt->execute()) {
