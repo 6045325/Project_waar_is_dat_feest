@@ -1,27 +1,33 @@
 <?php
 
-require_once 'connection.php';
+class User
+{
+    private int $id;
+    private string $username;
 
-class User extends Database {
-    private string $username = " ";
-    
-    public function __construct() {
-        parent::__construct();
+    public function __construct(int $id = 0, string $username = "")
+    {
+        $this->id = $id;
+        $this->username = $username;
     }
 
-    public function verifyUser(string $username, string $password): ?array {
-        $stmt = $this->getConnection()->prepare("SELECT ID, username, password FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch one row
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-        if ($user && password_verify($password, $user['password'])) {
-            // Wachtwoord klopt, retourneer alle user data behalve het gehashte wachtwoord zelf
-            unset($user['password']); // Verwijder het gehashte wachtwoord uit het array
-            return $user;
-        }
-        return null;
+    public function setId(int $id): void 
+    {
+        $this->id = $id;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
     }
 }
-?>
-
