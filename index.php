@@ -1,4 +1,3 @@
-
 <?php
 $title = "welcome";
 
@@ -30,23 +29,16 @@ $activiteiten = [
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Homepage</title>
+    <title>Activiteiten</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body id="Index-page">
 
-<!-- Navbar -->
-<div class="navbar">
-<h1><a href="index.php">Homepage</a></h1>   
-<a href="login/login.php">
-    <div class="nav-circle">
-        <img src="images/logged_out.jpg" alt="profile">
-    </div>
-</a>
-</div>
+<?php require_once 'includes/navbar.php'; ?>
 
 <!-- Hero -->
 <div class="hero">
@@ -69,14 +61,14 @@ $activiteiten = [
 
         <?php foreach($activiteiten as $activiteit): ?>
 
-            <div class="card">
-                <img src="<?php echo $activiteit['image']; ?>" alt="<?php echo $activiteit['title']; ?>">
+        <div class="card">
+            <img src="<?php echo $activiteit['image']; ?>" alt="<?php echo $activiteit['title']; ?>">
 
-                <div class="card-content">
-                    <h3><?php echo $activiteit['title']; ?></h3>
-                    <p><?php echo $activiteit['text']; ?></p>
-                </div>
+            <div class="card-content">
+                <h3><?php echo $activiteit['title']; ?></h3>
+                <p><?php echo $activiteit['text']; ?></p>
             </div>
+        </div>
 
         <?php endforeach; ?>
 
