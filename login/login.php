@@ -47,7 +47,7 @@ session_start();
 
             e.preventDefault(); // voorkomt reload
 
-            const formData = new FormData(this);
+            const formData = new FormData(this); 
 
             fetch("api/login.php", {
                     method: "POST",
@@ -57,7 +57,7 @@ session_start();
                 .then(data => {
 
                     if (data.success) {
-                        window.location.href = "../dashboard.php"; // Redirect naar dashboard
+                        window.location.href = "../dashboard.php";
                     } else {
                         document.getElementById("loginError").innerText = data.message;
                     }
@@ -84,7 +84,7 @@ session_start();
                     if (data.success) {
                         document.getElementById("loginError").style.color = "lightgreen";
                         document.getElementById("loginError").innerText = data.message;
-                        document.getElementById("chk").checked = false; // false = login
+                        document.getElementById("chk").checked = false;
                     } else {
                         document.getElementById("signupError").style.color = "red";
                         document.getElementById("signupError").innerText = data.message;
