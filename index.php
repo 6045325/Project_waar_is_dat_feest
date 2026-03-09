@@ -1,23 +1,51 @@
+
 <?php
 $title = "welcome";
+
+$activiteiten = [
+    [
+        "title" => "Surfing",
+        "image" => "images/placeholder.jpg",
+        "text"  => "Learn how to surf on the beautiful beach."
+    ],
+    [
+        "title" => "Beach Volleyball",
+        "image" => "images/placeholder.jpg",
+        "text"  => "Play volleyball with friends on the sand."
+    ],
+    [
+        "title" => "Boat Tour",
+        "image" => "images/placeholder.jpg",
+        "text"  => "Enjoy a relaxing boat tour on the water."
+    ],
+    [
+        "title" => "Cycling",
+        "image" => "images/placeholder.jpg",
+        "text"  => "Explore the dunes with a cycling route."
+    ]
+];
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Activiteiten</title>
+    <title>Homepage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body id="activiteiten-page">
+<body id="Index-page">
 
 <!-- Navbar -->
 <div class="navbar">
-    <h1>Activiteiten</h1>
-    <div class="nav-circle"></div>
+<h1><a href="index.php">Homepage</a></h1>   
+<a href="login/login.php">
+    <div class="nav-circle">
+        <img src="images/logged_out.jpg" alt="profile">
+    </div>
+</a>
 </div>
 
 <!-- Hero -->
@@ -39,14 +67,18 @@ $title = "welcome";
 <div class="card-section">
     <div class="card-grid">
 
-        <?php for($i = 0; $i < 4; $i++): ?>
+        <?php foreach($activiteiten as $activiteit): ?>
+
             <div class="card">
-                <img src="images/placeholder.jpg" alt="placeholder image">
+                <img src="<?php echo $activiteit['image']; ?>" alt="<?php echo $activiteit['title']; ?>">
+
                 <div class="card-content">
-                    <h3>Activiteit <?php echo $i + 1; ?></h3>
+                    <h3><?php echo $activiteit['title']; ?></h3>
+                    <p><?php echo $activiteit['text']; ?></p>
                 </div>
             </div>
-        <?php endfor; ?>
+
+        <?php endforeach; ?>
 
     </div>
 </div>
