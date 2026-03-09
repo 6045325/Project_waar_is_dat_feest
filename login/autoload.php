@@ -3,9 +3,8 @@
 spl_autoload_register(function ($class) {
 
     $directories = [
-        __DIR__ . "/Core/",
-        __DIR__ . "/Characters/",
-        __DIR__ . "/UI/"
+        __DIR__ . "/classes/",
+        __DIR__ . "/api/",
     ];
 
     foreach ($directories as $dir) {

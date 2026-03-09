@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 require_once 'connection.php';
 require_once 'User.php';
@@ -16,30 +17,35 @@ class UserManager extends Database
             "SELECT ID, username, password FROM users WHERE username = :username"
         );
 
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
+        $stmt->execute([
+            'username' => $username
+        ]);
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($data && password_verify($password, $data['password'])) {
-            return new User($data['ID'], $data['username']);
+        if (!$data) {
+            return null;
         }
 
-        return null;
+        $user = User::fromArray($data);
+
+        if (!$user->verifyPassword($password)) {
+            return null;
+        }
+
+        return $user;
     }
 
     public function getAllUsers(): array
     {
-        $stmt = $this->getConnection()->prepare(
+        $stmt = $this->getConnection()->query(
             "SELECT ID, username FROM users"
         );
-
-        $stmt->execute();
 
         $users = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = new User($row['ID'], $row['username']);
+            $users[] = User::fromArray($row);
         }
 
         return $users;
@@ -51,33 +57,38 @@ class UserManager extends Database
             "DELETE FROM users WHERE ID = :id"
         );
 
-        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
-
-        return $stmt->execute();
+        return $stmt->execute([
+            'id' => $userId
+        ]);
     }
 
-    public function addUser(string $username, string $password): bool
+    public function addUser(string $username, string $password): ?User
     {
         $stmt = $this->getConnection()->prepare(
             "SELECT ID FROM users WHERE username = :username"
         );
 
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
+        $stmt->execute([
+            'username' => $username
+        ]);
 
-        if ($stmt->rowCount() > 0) {
-            return false;
+        if ($stmt->fetch()) {
+            return null;
         }
 
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $this->getConnection()->prepare(
             "INSERT INTO users (username, password) VALUES (:username, :password)"
         );
 
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashed_password);
+        $stmt->execute([
+            'username' => $username,
+            'password' => $hashedPassword
+        ]);
 
-        return $stmt->execute();
+        $id = (int)$this->getConnection()->lastInsertId();
+
+        return new User($id, $username);
     }
 }
