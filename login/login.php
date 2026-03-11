@@ -10,6 +10,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Signup</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="js/main.js"></script>
     <style>
 
     </style>
@@ -41,62 +42,6 @@ session_start();
             </form>
         </article>
     </section>
-
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", function(e) {
-
-            e.preventDefault(); // voorkomt reload
-
-            const formData = new FormData(this); 
-
-            fetch("api/login.php", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-
-                    if (data.success) {
-                        window.location.href = "../dashboard.php";
-                    } else {
-                        document.getElementById("loginError").innerText = data.message;
-                    }
-
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-        });
-
-
-        document.getElementById("signupForm").addEventListener("submit", function(e) {
-
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            fetch("api/signup.php", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById("loginError").style.color = "lightgreen";
-                        document.getElementById("loginError").innerText = data.message;
-                        document.getElementById("chk").checked = false;
-                    } else {
-                        document.getElementById("signupError").style.color = "red";
-                        document.getElementById("signupError").innerText = data.message;
-                    }
-                })
-                .catch(error => {
-                    console.error("Fetch error:", error);
-                });
-
-        });
-    </script>
-
 </body>
 
 </html>
