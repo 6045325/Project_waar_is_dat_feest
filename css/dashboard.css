@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+*{box-sizing:border-box}
+
+:root{
+    --bg-light:#CAD2C5;
+    --bg-dark:#2F3E46;
+    --primary:#254F52;
+    --accent:#84A98C;
+    --accent-dark:#52796F;
+    --warning:#B59410;
+    --warning-dark:#927800;
+    --text-light:#CAD2C5;
+    --text-dark:#254F52;
+    --danger:#b72d2d;
+}
+
+body#dashboard{
+    margin:0;
+    min-height:100vh;
+    font-family:"Montserrat",sans-serif;
+    background:linear-gradient(rgba(202,210,197,.32),rgba(202,210,197,.32)),url("../images/login_background.png");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:var(--text-dark);
+}
+
+.desktop-admin-container{display:block;padding:30px 16px 50px}
+.admin-page-container,.form-card{
+    max-width:1250px;
+    margin:0 auto;
+    background:rgba(202,210,197,.88);
+    border-radius:22px;
+    padding:32px;
+    box-shadow:0 10px 30px rgba(0,0,0,.15)
+}
+.admin-top-row,.form-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:24px
+}
+.admin-subtitle{margin:0 0 4px;color:var(--primary);opacity:.8;font-weight:600}
+.admin-title,.form-title{margin:0;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--primary)}
+.admin-top-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-add-button,.admin-logout-button,.mobile-add-button,.back-link,.primary-button,.secondary-button{
+    text-decoration:none;
+    border:none;
+    border-radius:12px;
+    padding:12px 18px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s ease;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+}
+.admin-add-button,.mobile-add-button,.primary-button{background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff}
+.admin-logout-button,.mobile-logout-link,.secondary-button,.back-link{background:rgba(37,79,82,.12);color:var(--primary)}
+.admin-add-button:hover,.admin-logout-button:hover,.mobile-add-button:hover,.back-link:hover,.primary-button:hover,.secondary-button:hover{transform:translateY(-1px);filter:brightness(1.03)}
+.mobile-logout-link{display:inline-block;margin:0 14px 14px;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+
+.admin-table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:16px;background:rgba(37,79,82,.96)}
+.admin-table thead{background:var(--accent)}
+.admin-table th{padding:16px;text-align:left;font-size:.83rem;font-weight:800;text-transform:uppercase;color:var(--primary)}
+.admin-table td{padding:16px;color:var(--text-light);border-top:1px solid rgba(202,210,197,.15);vertical-align:top;line-height:1.5}
+.admin-table tbody tr:hover td{background:rgba(82,121,111,.55)}
+.admin-action-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.admin-edit-btn,.admin-delete-btn,.mobile-edit-btn,.mobile-delete-btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 14px;border-radius:10px;text-decoration:none;font-size:.88rem;font-weight:700;border:none;cursor:pointer;transition:.2s ease}
+.admin-edit-btn,.mobile-edit-btn{background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff}
+.admin-delete-btn,.mobile-delete-btn{background:linear-gradient(135deg,var(--warning),var(--warning-dark));color:#fff}
+.admin-edit-btn:hover,.admin-delete-btn:hover,.mobile-edit-btn:hover,.mobile-delete-btn:hover{transform:translateY(-1px);filter:brightness(1.03)}
+.no-items{text-align:center;font-style:italic;padding:24px}
+
+.mobile-admin-container{display:none}
+.mobile-admin-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}
+.mobile-admin-title{margin:0;font-size:1.45rem;font-weight:800;color:var(--primary)}
+.mobile-activiteit-list{display:flex;flex-direction:column;gap:14px}
+.mobile-activiteit-card{background:rgba(37,79,82,.96);color:var(--text-light);border-radius:16px;padding:16px;box-shadow:0 8px 18px rgba(0,0,0,.12);border-left:5px solid var(--accent)}
+.mobile-activiteit-name{margin:0 0 8px;font-size:1.08rem;font-weight:700}
+.mobile-activiteit-meta{font-size:.92rem;opacity:.95;margin-bottom:4px}
+.mobile-activiteit-description,.mobile-activiteit-notes{margin:10px 0 0;line-height:1.55;font-size:.95rem}
+.mobile-activiteit-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.mobile-no-items{background:rgba(47,62,70,.95);color:var(--text-light);border-radius:16px;padding:24px 18px;text-align:center;line-height:1.6}
+
+.form-page-wrapper{padding:30px 16px 50px}
+.form-card{max-width:900px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.full-width{grid-column:1 / -1}
+.input-group label{display:block;font-weight:700;color:var(--primary);margin-bottom:8px}
+.input-group input,.input-group textarea,.input-group select{
+    width:100%;padding:13px 14px;border:1px solid rgba(37,79,82,.18);border-radius:12px;background:#fff;
+    font:inherit;color:var(--primary);outline:none
+}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus{border-color:var(--accent-dark);box-shadow:0 0 0 3px rgba(132,169,140,.18)}
+.error-message{display:none;font-size:.88rem;color:var(--danger);margin-top:6px}
+.error-message.visible{display:block}
+.form-error-box{background:#fde4e4;color:var(--danger);padding:12px 14px;border-radius:12px;margin-bottom:16px;font-weight:600}
+.form-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+@media (max-width:900px){
+    .admin-page-container,.form-card{padding:22px}
+    .admin-table th,.admin-table td{padding:12px;font-size:.9rem}
+    .form-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:600px){
+    body#dashboard{background-attachment:scroll}
+    .desktop-admin-container{display:none}
+    .mobile-admin-container{display:block;padding:20px 14px 40px}
+    .mobile-admin-header{flex-wrap:wrap}
+    .mobile-add-button{width:100%}
+    .form-page-wrapper{padding:20px 14px 40px}
+    .form-actions > *{width:100%}
+}

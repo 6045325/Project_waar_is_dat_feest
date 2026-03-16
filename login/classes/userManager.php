@@ -1,5 +1,4 @@
 <?php
-
 require_once 'connection.php';
 
 class UserManager extends Database {
@@ -8,54 +7,32 @@ class UserManager extends Database {
     }
 
     public function verifyUser(string $username, string $password): ?array {
-        $stmt = $this->getConnection()->prepare("SELECT ID, username, password FROM users WHERE username = :username");
+        $stmt = $this->getConnection()->prepare("SELECT user_id, username, password, email FROM users WHERE username = :username LIMIT 1");
         $stmt->bindParam(':username', $username);
         $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch one row
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['password'])) {
-            // Wachtwoord klopt, retourneer alle user data behalve het gehashte wachtwoord zelf
-            unset($user['password']); // Verwijder het gehashte wachtwoord uit het array
+            unset($user['password']);
             return $user;
         }
         return null;
     }
 
-
-    public function getAllUsers(): array {
-        $stmt = $this->getConnection()->prepare("SELECT ID, Username FROM users");
-        if ($stmt->execute()) {
-            return $stmt->fetchAll();
-        }
-        return [];
-    }
-
-    public function deleteUser(int $userId): bool {
-        if (!$userId) {
+    public function addUser(string $username, string $password, string $email): bool {
+        $check = $this->getConnection()->prepare("SELECT user_id FROM users WHERE username = :username OR email = :email LIMIT 1");
+        $check->execute([':username' => $username, ':email' => $email]);
+        if ($check->fetch()) {
             return false;
         }
-        $stmt = $this->getConnection()->prepare("DELETE FROM users WHERE ID = :ID");
-        $stmt->bindParam(':ID', $userId, PDO::PARAM_INT);
-        return $stmt->execute();
-    }
 
-
-    // Methode om een nieuwe gebruiker toe te voegen
-    public function addUser(string $username, string $password): bool {
-        // Controleer eerst of de gebruikersnaam al bestaat
-        $stmt = $this->getConnection()->prepare("SELECT ID FROM users WHERE username = :username");
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            return false; // Gebruikersnaam bestaat al
-        }
-
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->getConnection()->prepare("INSERT INTO users (username, password) VALUES (:username, :password)"); // Standaard rol 'guest'
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $hashed_password);
-        return $stmt->execute();
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->getConnection()->prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)");
+        return $stmt->execute([
+            ':username' => $username,
+            ':password' => $hashedPassword,
+            ':email' => $email,
+        ]);
     }
 }
 ?>
-

@@ -1,401 +1,484 @@
-/* ================================== LOGIN pagina ====================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-#login{
+:root {
+    --bg-light: #CAD2C5;
+    --bg-dark: #2F3E46;
+    --primary: #254F52;
+    --accent: #84A98C;
+    --accent-dark: #52796F;
+    --warning: #B59410;
+    --warning-dark: #927800;
+    --danger: #c34c4c;
+    --text-light: #F6FAF7;
+    --muted: #d9e2dc;
+    --glass: rgba(202, 210, 197, 0.82);
+    --glass-strong: rgba(255, 255, 255, 0.14);
+    --line: rgba(37, 79, 82, 0.15);
+    --shadow: 0 14px 40px rgba(0, 0, 0, 0.15);
+}
+
+* { box-sizing: border-box; }
+
+body#login,
+body#activity-page {
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    font-family: 'Jost', sans-serif;
-    background-color: #CAD2C5;
-    background-image: url("../images/login_background.png");
+    font-family: 'Montserrat', sans-serif;
+    background:
+        linear-gradient(rgba(202, 210, 197, 0.38), rgba(202, 210, 197, 0.38)),
+        url('../images/login_background.png');
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--primary);
 }
 
-#login #form {
-    width: 350px;
-    height: 500px;
-    background: #254F52;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px #2F3E46;
+/* LOGIN */
+#login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 16px;
 }
 
-#login #chk {
-    display: none;
-}
-
-#login .login {
-    position: relative;
+#login .auth-shell {
     width: 100%;
-    height: 100%;
+    max-width: 540px;
 }
 
-#login label {
-    color: #CAD2C5;
-    font-size: 2.3em;
-    justify-content: center;
-    display: flex;
-    margin: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .5s ease-in-out;
+#login .auth-card {
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    padding: 28px;
 }
 
-#login input {
-    width: 60%;
-    height: 10px;
-    background: #CAD2C5;
-    justify-content: center;
-    display: flex;
-    margin: 20px auto;
-    padding: 12px;
+#login .auth-header {
+    margin-bottom: 22px;
+}
+
+#login .auth-kicker {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: .82rem;
+}
+
+#login .auth-header h1 {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    color: var(--primary);
+}
+
+#login .auth-header p {
+    margin: 0;
+    color: rgba(37,79,82,0.78);
+    line-height: 1.6;
+}
+
+#login .auth-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: rgba(255,255,255,0.45);
+    padding: 6px;
+    border-radius: 18px;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+#login .auth-switch-btn {
     border: none;
-    outline: none;
-    border-radius: 5px;
-    color: #254F52;
+    background: transparent;
+    color: rgba(37,79,82,0.8);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
 }
 
-#login button {
-    width: 60%;
-    height: 40px;
-    margin: 10px auto;
-    justify-content: center;
+#login .auth-switch-btn.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
+    box-shadow: 0 10px 24px rgba(37,79,82,0.12);
+}
+
+#login .auth-panel { display: none; }
+#login .auth-panel.active { display: block; }
+
+#login .auth-form label {
     display: block;
-    color: #CAD2C5;
-    background-color: #84A98C;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+#login .auth-form input {
+    width: 100%;
+    background: rgba(255,255,255,0.94);
+    display: block;
+    margin: 0 0 16px;
+    padding: 14px 16px;
+    border: 1px solid rgba(37,79,82,0.12);
     outline: none;
+    border-radius: 14px;
+    color: var(--primary);
+    font: inherit;
+}
+
+#login .auth-form input:focus {
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 0 4px rgba(132,169,140,0.18);
+}
+
+#login .auth-submit {
+    width: 100%;
+    min-height: 50px;
+    color: var(--text-light);
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    font-size: 1rem;
+    font-weight: 700;
     border: none;
-    border-radius: 5px;
+    border-radius: 14px;
     cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 4px;
 }
 
-#login button:hover {
-    background-color: #52796F;
-    transition: background-color 0.3s ease;
-}
-
-#login .signup {
-    height: 460px;
-    background: #2F3E46;
-    border-radius: 60% / 10%;
-    transform: translateY(-160px);
-    transition: .8s ease-in-out;
-}
-
-#login .signup label {
-    color: #CAD2C5;
-    transform: scale(.6);
-}
-
-#login #chk:checked~.signup {
-    transform: translateY(-490px);
-}
-
-#login #chk:checked~.signup label {
-    transform: scale(1);
-}
-
-#login #chk:checked~.login label {
-    transform: scale(.6);
+#login .auth-submit:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
 }
 
 #login .error-message {
-    color: #B59410;
-    margin-top: 5px;
-    font-size: 0.9em;
-    padding-left: 5px;
+    min-height: 22px;
+    margin: 14px 0 0;
+    font-size: 0.92rem;
+    font-weight: 600;
 }
 
-#login .error-icon {
-    color: #B59410;
-    font-size: 1em;
-    margin-right: 5px;
+/* ACTIVITY WIZARD */
+#activity-page .wizard-page {
+    padding: 28px 16px 50px;
 }
 
-/* ====================== DASHBOARD CSS START ====================== */
-
-#dashboard .admin-page-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    background: #CAD2C5;
-    border-radius: 14px;
-    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
-    padding: 32px;
+#activity-page .wizard-shell {
+    max-width: 1120px;
+    margin: 0 auto;
 }
 
-#dashboard .admin-action-bar {
+#activity-page .wizard-topbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 32px;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-#dashboard .admin-left-spacer {
-    width: 160px;
+#activity-page .wizard-kicker {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-size: .82rem;
 }
 
-#dashboard .admin-title {
+#activity-page .wizard-title {
+    margin: 0 0 10px;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    color: var(--primary);
+    font-weight: 800;
+}
+
+#activity-page .wizard-intro {
     margin: 0;
-    font-size: 2.2em;
-    font-weight: 700;
-    color: #254F52;
-    text-align: center;
-    flex-grow: 1;
+    max-width: 700px;
+    color: rgba(37,79,82,0.8);
+    line-height: 1.6;
 }
 
-#dashboard .admin-add-button {
-    background: #84A98C;
-    color: #CAD2C5;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 8px;
-    font-size: 1em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
+#activity-page .wizard-back-link,
+#activity-page .wizard-btn,
+#activity-page .wizard-btn-ghost {
     text-decoration: none;
-    display: inline-block;
 }
 
-#dashboard .admin-add-button:hover {
-    background: #52796F;
-    transform: translateY(-1px);
+#activity-page .wizard-back-link,
+#activity-page .wizard-btn-ghost,
+#activity-page .wizard-btn-secondary {
+    background: rgba(37,79,82,0.1);
+    color: var(--primary);
 }
 
-#dashboard .admin-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #254F52;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-#dashboard .admin-table thead {
-    background: #84A98C;
-}
-
-#dashboard .admin-table th,
-#dashboard .admin-table td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid #CAD2C5;
-    vertical-align: middle;
-}
-
-#dashboard .admin-table th {
+#activity-page .wizard-back-link,
+#activity-page .wizard-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    padding: 12px 18px;
     font-weight: 700;
-    color: #CAD2C5;
-    font-size: 0.95em;
+    border: none;
+    cursor: pointer;
+    transition: .2s ease;
 }
 
-#dashboard .admin-table td {
-    font-size: 0.95em;
-    color: #CAD2C5;
+#activity-page .wizard-btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: white;
 }
 
-#dashboard .admin-table tbody tr:hover td {
-    background: #52796F;
+#activity-page .wizard-back-link:hover,
+#activity-page .wizard-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
 }
 
-#dashboard .admin-action-buttons {
+#activity-page .wizard-card {
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+}
+
+#activity-page .wizard-alert {
+    padding: 14px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    background: #ffe6e6;
+    color: var(--danger);
+    font-weight: 700;
+}
+
+#activity-page .wizard-tabs-shell {
+    background: rgba(255,255,255,0.38);
+    border-radius: 22px;
+    padding: 8px;
+    margin-bottom: 16px;
+}
+
+#activity-page .wizard-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+#activity-page .wizard-tab {
+    border: none;
+    border-radius: 16px;
+    padding: 14px 14px 12px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+#activity-page .wizard-tab:hover,
+#activity-page .wizard-tab.active {
+    background: rgba(255,255,255,0.82);
+}
+
+#activity-page .wizard-tab.complete {
+    box-shadow: inset 0 0 0 1px rgba(79,165,106,0.30);
+}
+
+#activity-page .wizard-tab-step {
+    display: block;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(37,79,82,0.58);
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+#activity-page .wizard-tab-title {
+    display: block;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+#activity-page .wizard-tab-subtitle {
+    display: block;
+    font-size: .83rem;
+    color: rgba(37,79,82,0.7);
+    margin-bottom: 10px;
+}
+
+#activity-page .wizard-inline-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0 18px;
+    padding: 0 2px;
+    font-size: .95rem;
+    font-weight: 700;
+    color: rgba(37,79,82,0.76);
+}
+
+#activity-page .wizard-progress-track {
+    display: block;
+    width: 100%;
+    height: 10px;
+    background: rgba(37,79,82,0.08);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+#activity-page .wizard-progress-track.small {
+    height: 9px;
+}
+
+#activity-page .wizard-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(135deg, #8bd39a, #4fa56a);
+    border-radius: 999px;
+    transition: width .25s ease;
+}
+
+#activity-page .wizard-form {
+    min-height: 440px;
+}
+
+#activity-page .wizard-panel { display: none; }
+#activity-page .wizard-panel.active { display: block; }
+
+#activity-page .wizard-panel-header h2 {
+    margin: 0 0 6px;
+    color: var(--primary);
+    font-size: 1.45rem;
+}
+
+#activity-page .wizard-panel-header p {
+    margin: 0 0 20px;
+    color: rgba(37,79,82,0.74);
+}
+
+#activity-page .wizard-grid.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+#activity-page .wizard-field {
+    margin-bottom: 18px;
+}
+
+#activity-page .wizard-field label {
+    display: block;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+#activity-page .wizard-field input,
+#activity-page .wizard-field textarea,
+#activity-page .wizard-field select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(37,79,82,0.14);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.92);
+    color: var(--primary);
+    font: inherit;
+    outline: none;
+}
+
+#activity-page .wizard-field input:focus,
+#activity-page .wizard-field textarea:focus,
+#activity-page .wizard-field select:focus {
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 0 4px rgba(132,169,140,0.18);
+}
+
+#activity-page .wizard-field input.error,
+#activity-page .wizard-field textarea.error,
+#activity-page .wizard-field select.error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 4px rgba(195,76,76,0.12);
+}
+
+#activity-page .wizard-error {
+    display: none;
+    margin-top: 8px;
+    color: var(--danger);
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+#activity-page .wizard-error.visible { display: block; }
+
+#activity-page .wizard-helper {
+    margin-top: 8px;
+    color: rgba(37,79,82,0.65);
+    font-size: .88rem;
+}
+
+#activity-page .wizard-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+#activity-page .wizard-footer-right {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-#dashboard .admin-edit-btn {
-    background: #84A98C;
-    color: #CAD2C5;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 0.85em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
-    display: inline-block;
-}
-
-#dashboard .admin-edit-btn:hover {
-    background: #52796F;
-}
-
-#dashboard .admin-delete-btn {
-    background: #B59410;
-    color: #CAD2C5;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 0.85em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-#dashboard .admin-delete-btn:hover {
-    background: #927800;
-}
-
-#dashboard .no-vacatures {
-    text-align: center;
-    padding: 24px;
-    color: #CAD2C5;
-    font-style: italic;
-}
-
-#dashboard .mobile-admin-container {
-    display: none;
-}
-
-/* Tablet responsive aanpassingen (600px-900px) */
-@media (min-width: 601px) and (max-width: 900px) {
-    #dashboard .admin-page-container {
-        margin: 20px;
-        padding: 24px;
+@media (max-width: 900px) {
+    #activity-page .wizard-tabs {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    #dashboard .admin-table th,
-    #dashboard .admin-table td {
-        padding: 12px 14px;
-        font-size: 0.9em;
-    }
-
-    #dashboard .admin-title {
-        font-size: 1.8em;
-    }
-
-    #dashboard .admin-add-button {
-        padding: 10px 18px;
-        font-size: 0.9em;
+    #activity-page .wizard-grid.two {
+        grid-template-columns: 1fr;
     }
 }
 
-/* Mobiele versie (max-width: 600px) */
-@media (max-width: 600px) {
-    #dashboard .desktop-admin-container {
-        display: none;
+@media (max-width: 640px) {
+    body#login,
+    body#activity-page {
+        background-attachment: scroll;
     }
 
-    #dashboard .mobile-admin-container {
+    #login .auth-card,
+    #activity-page .wizard-card {
         padding: 16px;
-        background: #CAD2C5;
-        min-height: 100vh;
+        border-radius: 18px;
     }
 
-    #dashboard .mobile-admin-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 24px;
-        padding-bottom: 16px;
-        border-bottom: 2px solid #84A98C;
+    #activity-page .wizard-page {
+        padding: 18px 12px 36px;
     }
 
-    #dashboard .mobile-admin-title {
-        font-size: 1.8em;
-        font-weight: 700;
-        color: #254F52;
-        margin: 0;
+    #activity-page .wizard-tabs {
+        grid-template-columns: 1fr;
     }
 
-    #dashboard .mobile-add-button {
-        background: #84A98C;
-        color: #CAD2C5;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
+    #activity-page .wizard-footer,
+    #activity-page .wizard-footer-right,
+    #activity-page .wizard-btn,
+    #activity-page .wizard-back-link,
+    #login .auth-switch {
+        width: 100%;
     }
 
-    #dashboard .mobile-vacature-list {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    #dashboard .mobile-vacature-card {
-        background: #254F52;
-        border-radius: 12px;
-        padding: 16px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        border-left: 4px solid #84A98C;
-        color: #CAD2C5;
-    }
-
-    #dashboard .mobile-vacature-header {
-        margin-bottom: 12px;
-    }
-
-    #dashboard .mobile-vacature-name {
-        font-size: 1.2em;
-        font-weight: 600;
-        color: #CAD2C5;
-        margin: 0 0 8px 0;
-    }
-
-    #dashboard .mobile-vacature-location {
-        font-size: 0.9em;
-        color: #CAD2C5;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
-
-    #dashboard .mobile-vacature-description {
-        font-size: 0.95em;
-        color: #CAD2C5;
-        line-height: 1.5;
-        margin-bottom: 16px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    #dashboard .mobile-vacature-actions {
-        display: flex;
-        gap: 10px;
-        justify-content: flex-end;
-    }
-
-    #dashboard .mobile-edit-btn {
-        background: #84A98C;
-        color: #CAD2C5;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 500;
-        text-decoration: none;
-        font-size: 0.9em;
-    }
-
-    #dashboard .mobile-delete-btn {
-        background: #B59410;
-        color: #CAD2C5;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-weight: 500;
-        cursor: pointer;
-        font-size: 0.9em;
-    }
-
-    #dashboard .mobile-no-vacatures {
-        text-align: center;
-        padding: 40px 20px;
-        color: #CAD2C5;
-        font-style: italic;
-        background: #2F3E46;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    #activity-page .wizard-footer-right {
+        justify-content: stretch;
     }
 }

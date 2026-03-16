@@ -1,51 +1,89 @@
+<?php
+session_start();
 
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: login/login.php');
+    exit;
+}
+
+require_once __DIR__ . '/classes/activiteitmanager.php';
+$activiteitManager = new ActiviteitManager();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'], $_POST['activiteit-id'])) {
+    $id = (int)$_POST['activiteit-id'];
+    if ($id > 0) {
+        $activiteit = $activiteitManager->getActiviteitById($id);
+        if ($activiteit && (int)$activiteit['user_id'] === (int)$_SESSION['user_id']) {
+            $activiteitManager->deleteActiviteit($id);
+        }
+    }
+    header('Location: dashboard.php');
+    exit;
+}
+
+$allactiviteiten = $activiteitManager->getAllActiviteiten();
+$userId = $_SESSION['user_id'] ?? null;
+$activiteiten = [];
+
+foreach ($allactiviteiten as $activiteit) {
+    if ($userId !== null && (int)$activiteit['user_id'] === (int)$userId) {
+        $activiteiten[] = $activiteit;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vacaturebeheer</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Activiteitenbeheer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
-
 <body id="dashboard">
-    <!-- DESKTOP & TABLET VERSIE (601px en hoger) -->
     <div class="desktop-admin-container">
         <div class="admin-page-container">
-            <div class="admin-action-bar">
-                <div class="admin-left-spacer"></div>
-                <h1 class="admin-title">Vacaturebeheer</h1>
-                <form method="POST" action="addvacature.php">
-                    <button type="submit" name="add" class="admin-add-button">+ Nieuwe Vacature</button>
-                </form>
+            <div class="admin-top-row">
+                <div>
+                    <p class="admin-subtitle">Welkom, <?= htmlspecialchars($_SESSION['username'] ?? 'gebruiker') ?></p>
+                    <h1 class="admin-title">Activiteitenbeheer</h1>
+                </div>
+                <div class="admin-top-actions">
+                    <a href="addactiviteit.php" class="admin-add-button">+ Nieuwe Activiteit</a>
+                    <a href="logout.php" class="admin-logout-button">Uitloggen</a>
+                </div>
             </div>
 
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Functie</th>
-                        <th>Omschrijving</th>
+                        <th>Titel</th>
+                        <th>Datum</th>
+                        <th>Tijd</th>
                         <th>Locatie</th>
+                        <th>Soort</th>
+                        <th>Status</th>
                         <th>Acties</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($vacatures)): ?>
-                        <?php foreach ($vacatures as $vacature): ?>
+                    <?php if (!empty($activiteiten)): ?>
+                        <?php foreach ($activiteiten as $activiteit): ?>
                             <tr>
-                                <td><?= htmlspecialchars($vacature['vacature_naam'] ?? $vacature['naam'] ?? 'Onbekend') ?></td>
-                                <td><?= htmlspecialchars($vacature['vacature_omschrijving']) ?></td>
-                                <td><?= htmlspecialchars($vacature['vacature_locatie'] ?? $vacature['locatie'] ?? '-') ?></td>
+                                <td><?= htmlspecialchars($activiteit['activiteit_titel']) ?></td>
+                                <td><?= htmlspecialchars($activiteit['activiteit_datum']) ?></td>
+                                <td><?= htmlspecialchars(substr($activiteit['activiteit_tijd'], 0, 5)) ?></td>
+                                <td><?= htmlspecialchars($activiteit['activiteit_locatie']) ?></td>
+                                <td><?= htmlspecialchars(ucfirst($activiteit['soort_activiteit'])) ?></td>
+                                <td><?= htmlspecialchars(ucfirst($activiteit['activiteit_status'])) ?></td>
                                 <td>
                                     <div class="admin-action-buttons">
-                                        <a href="addvacature.php?id=<?= $vacature['id'] ?? $vacature['vacature_id'] ?? '' ?>" 
-                                           class="admin-edit-btn">Bewerken</a>
+                                        <a href="addactiviteit.php?id=<?= (int)$activiteit['activiteit_id'] ?>" class="admin-edit-btn">Bewerken</a>
                                         <form method="POST" style="display:inline;">
-                                            <input type="hidden" name="vacature-id" 
-                                                   value="<?= $vacature['id'] ?? $vacature['vacature_id'] ?? '' ?>">
-                                            <button type="submit" name="delete" value="1" 
-                                                    class="admin-delete-btn">Verwijderen</button>
+                                            <input type="hidden" name="activiteit-id" value="<?= (int)$activiteit['activiteit_id'] ?>">
+                                            <button type="submit" name="delete" value="1" class="admin-delete-btn">Verwijderen</button>
                                         </form>
                                     </div>
                                 </td>
@@ -53,7 +91,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" class="no-vacatures">Er zijn nog geen vacatures.</td>
+                            <td colspan="7" class="no-items">Er zijn nog geen activiteiten.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -61,61 +99,51 @@
         </div>
     </div>
 
-    <!-- MOBIELE VERSIE (max-width: 600px) -->
     <div class="mobile-admin-container">
         <div class="mobile-admin-header">
-            <h1 class="mobile-admin-title">Vacaturebeheer</h1>
-            <form method="POST" action="addvacature.php">
-                <button type="submit" name="add" class="mobile-add-button">+ Nieuw</button>
-            </form>
+            <div>
+                <p class="admin-subtitle">Welkom, <?= htmlspecialchars($_SESSION['username'] ?? 'gebruiker') ?></p>
+                <h1 class="mobile-admin-title">Activiteitenbeheer</h1>
+            </div>
+            <a href="addactiviteit.php" class="mobile-add-button">+ Nieuw</a>
         </div>
+        <a href="logout.php" class="mobile-logout-link">Uitloggen</a>
 
-        <div class="mobile-vacature-list">
-            <?php if (!empty($vacatures)): ?>
-                <?php foreach ($vacatures as $vacature): ?>
-                    <div class="mobile-vacature-card">
-                        <div class="mobile-vacature-header">
-                            <h3 class="mobile-vacature-name">
-                                <?= htmlspecialchars($vacature['vacature_naam'] ?? $vacature['naam'] ?? 'Onbekend') ?>
-                            </h3>
-                            <div class="mobile-vacature-location">
-                                📍 <?= htmlspecialchars($vacature['vacature_locatie'] ?? $vacature['locatie'] ?? '-') ?>
-                            </div>
+        <div class="mobile-activiteit-list">
+            <?php if (!empty($activiteiten)): ?>
+                <?php foreach ($activiteiten as $activiteit): ?>
+                    <div class="mobile-activiteit-card">
+                        <div class="mobile-activiteit-header">
+                            <h3 class="mobile-activiteit-name"><?= htmlspecialchars($activiteit['activiteit_titel']) ?></h3>
+                            <div class="mobile-activiteit-meta">📅 <?= htmlspecialchars($activiteit['activiteit_datum']) ?> · 🕒 <?= htmlspecialchars(substr($activiteit['activiteit_tijd'], 0, 5)) ?></div>
+                            <div class="mobile-activiteit-meta">📍 <?= htmlspecialchars($activiteit['activiteit_locatie']) ?></div>
+                            <div class="mobile-activiteit-meta">Soort: <?= htmlspecialchars(ucfirst($activiteit['soort_activiteit'])) ?> · Status: <?= htmlspecialchars(ucfirst($activiteit['activiteit_status'])) ?></div>
                         </div>
-                        
-                        <p class="mobile-vacature-description">
-                            <?= htmlspecialchars($vacature['vacature_omschrijving']) ?>
-                        </p>
-                        
-                        <div class="mobile-vacature-actions">
-                            <a href="addvacature.php?id=<?= $vacature['id'] ?? $vacature['vacature_id'] ?? '' ?>" 
-                               class="mobile-edit-btn">Bewerken</a>
+                        <p class="mobile-activiteit-description"><?= nl2br(htmlspecialchars($activiteit['activiteit_beschrijving'])) ?></p>
+                        <?php if (!empty($activiteit['activiteit_opmerkingen'])): ?>
+                            <p class="mobile-activiteit-notes"><strong>Opmerkingen:</strong> <?= nl2br(htmlspecialchars($activiteit['activiteit_opmerkingen'])) ?></p>
+                        <?php endif; ?>
+                        <div class="mobile-activiteit-actions">
+                            <a href="addactiviteit.php?id=<?= (int)$activiteit['activiteit_id'] ?>" class="mobile-edit-btn">Bewerken</a>
                             <form method="POST" style="display:inline;">
-                                <input type="hidden" name="vacature-id" 
-                                       value="<?= $vacature['id'] ?? $vacature['vacature_id'] ?? '' ?>">
-                                <button type="submit" name="delete" value="1" 
-                                        class="mobile-delete-btn">Verwijderen</button>
+                                <input type="hidden" name="activiteit-id" value="<?= (int)$activiteit['activiteit_id'] ?>">
+                                <button type="submit" name="delete" value="1" class="mobile-delete-btn">Verwijderen</button>
                             </form>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="mobile-no-vacatures">
-                    Er zijn nog geen vacatures.<br>
-                    <small>Maak je eerste vacature aan met de "+ Nieuw" knop.</small>
-                </div>
+                <div class="mobile-no-items">Er zijn nog geen activiteiten. Maak je eerste activiteit aan met de knop hierboven.</div>
             <?php endif; ?>
         </div>
     </div>
 
     <script>
-        // Bevestiging voor verwijderen op alle apparaten
         document.addEventListener('DOMContentLoaded', function() {
             const deleteButtons = document.querySelectorAll('.admin-delete-btn, .mobile-delete-btn');
-            
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
-                    if (!confirm('Weet je zeker dat je deze vacature wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.')) {
+                    if (!confirm('Weet je zeker dat je deze activiteit wilt verwijderen?')) {
                         e.preventDefault();
                     }
                 });
@@ -123,5 +151,4 @@
         });
     </script>
 </body>
-
 </html>
