@@ -475,37 +475,54 @@ h1 a {
 
 /* Hero */
 
-#Index-page .hero{
-    position:relative;
-    height:100vh;
+#Index-page .hero {
+    position: relative;
+    height: 100vh;
     background: linear-gradient(rgba(37,79,82,0.5), rgba(37,79,82,0.5)),
                 url("../images/background.jpg") center/cover no-repeat;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:#CAD2C5;
+    display: flex;
+    flex-direction: column; /* onder elkaar */
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.03rem;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: #CAD2C5;
 }
 
-#Index-page .hero h2{
-    font-size:48px;
-    text-transform:lowercase;
+#Index-page .hero .ontdek {
+    font-family: 'Lobster', cursive; /* Voor "Ontdek" */
+        letter-spacing: 0.1rem;
 }
 
+#Index-page .hero .beleef {
+    font-family: 'Pacifico', cursive; /* Voor "Beleef" */
+        letter-spacing: 0.2rem;
+}
+
+#Index-page .hero .geniet {
+    font-family: 'Fredoka', cursive;
+    letter-spacing: 0.03rem;
+}
 /* Content */
 
 #Index-page .content{
-    padding:40px 20px;
-    text-align:center;
-    max-width:900px;
-    margin:auto;
+    padding:60px 30px;
+    max-width:800px;
+    margin:0 auto;
+    text-align:left; /* dit is belangrijk */
 }
 
 
+#Index-page .content h2{
+    margin-top:40px;
+    margin-bottom:10px;
+}
+
 #Index-page .content p{
-    margin-top:20px;
-    margin-bottom: 200px;
-    line-height:1.6;
+    margin-bottom:25px;
+    line-height:1.7;
 }
 
 /* Card section */
@@ -586,28 +603,234 @@ h1 a {
 
 /* ====================== ACTIVITEITEN PAGE ====================== */
 
-#Activiteiten-page *{
+/* ALGEMEEN RESET */
+#Activiteiten-page * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
+/* BODY */
 #Activiteiten-page {
     background-color: #CAD2C5;
     color: #2F3E46;
+    padding-top: 0; /* no need for extra space */
 }
 
-#Activiteiten-page .content{
-    padding:40px 20px;
-    text-align:center;
-    max-width:900px;
-    margin:auto;
+/* NAVBAR */
+#Activiteiten-page .navbar {
+    background-color: rgba(47, 62, 70, 0.7);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #CAD2C5;
+    position: relative; /* instead of fixed */
+    width: 100%;
+    z-index: 1000;
+    /* remove top/left, no need to reserve space manually */
 }
 
+/* NAV LEFT */
+#Activiteiten-page .nav-left {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
 
-#Activiteiten-page .content p{
-    margin-top:20px;
-    margin-bottom: 200px;
-    line-height:1.6;
+#Activiteiten-page .nav-left img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#Activiteiten-page .navbar h1 {
+    font-size: 25px;
+}
+
+/* PROFILE CIRCLE */
+#Activiteiten-page .nav-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #2F3E46;
+}
+
+#Activiteiten-page .nav-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* FORMULIER */
+.form-container {
+    background: #84A98C;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-container input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.form-container button {
+    padding: 10px;
+    border: none;
+    background: #52796F;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.form-container button:hover {
+    background: #354f52;
+}
+
+/* ACTIVITEITEN CONTAINER */
+.activiteiten-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto 50px auto; /* center en ruimte onderaan */
+}
+
+/* ACTIVITEIT KAART */
+.activiteit-kaart {
+    display: flex;
+    background-color: #84A98C;
+    border-radius: 20px;
+    align-items: center;
+    padding: 15px;
+    gap: 15px;
+    animation: fadeIn 0.4s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.activiteit-kaart:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.activiteit-kaart img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* INFO */
+.kaart-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* HEADER */
+.kaart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* TAGS */
+.kaart-tags span {
+    background-color: #52796F;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    color: white;
+    margin-right: 5px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.kaart-tags span:hover {
+    background-color: #354f52;
+}
+
+/* KNOPPEN */
+.delete-btn {
+    background: crimson;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
+
+.edit-btn {
+    background: #3a86ff;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.edit-btn:hover {
+    background: #265df2;
+}
+
+/* ANIMATIE */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .activiteit-kaart {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .activiteit-kaart img {
+        width: 100%;
+        height: auto;
+    }
+
+    .form-container {
+        margin: 20px 10px;
+    }
+
+    #Activiteiten-page .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
