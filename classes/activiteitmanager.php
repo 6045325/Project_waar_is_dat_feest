@@ -42,7 +42,7 @@ class ActiviteitManager extends Database {
         );
 
         return $stmt->execute([
-            ':[titel' => $titel,
+            ':titel' => $titel,
             ':beschrijving' => $beschrijving,
             ':datum' => $datum,
             ':tijd' => $tijd,
