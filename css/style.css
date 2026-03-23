@@ -665,172 +665,92 @@ h1 a {
     object-fit: cover;
 }
 
-/* FORMULIER */
-.form-container {
-    background: #84A98C;
-    padding: 20px;
-    border-radius: 20px;
-    margin: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f4f6f9;
+    margin: 0;
 }
 
-.form-container h2 {
-    margin-bottom: 15px;
+.container {
+    padding: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
     text-align: center;
+    margin-bottom: 30px;
 }
 
-.form-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+/* Grid layout */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-.form-container input {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-}
-
-.form-container button {
-    padding: 10px;
-    border: none;
-    background: #52796F;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.form-container button:hover {
-    background: #354f52;
-}
-
-/* ACTIVITEITEN CONTAINER */
-.activiteiten-container {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+/* Card styling */
+.card {
+    background: #fff;
+    border-radius: 16px;
     padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto 50px auto; /* center en ruimte onderaan */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.3s;
 }
 
-/* ACTIVITEIT KAART */
-.activiteit-kaart {
-    display: flex;
-    background-color: #84A98C;
-    border-radius: 20px;
-    align-items: center;
-    padding: 15px;
-    gap: 15px;
-    animation: fadeIn 0.4s ease;
-    transition: transform 0.3s, box-shadow 0.3s;
+.card:hover {
+    transform: translateY(-5px);
 }
 
-.activiteit-kaart:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-.activiteit-kaart img {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-/* INFO */
-.kaart-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* HEADER */
-.kaart-header {
+/* Header */
+.card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 }
 
-/* TAGS */
-.kaart-tags span {
-    background-color: #52796F;
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 13px;
-    color: white;
-    margin-right: 5px;
-    margin-top: 5px;
-    display: inline-block;
+.card-header h2 {
+    margin: 0;
+    font-size: 20px;
 }
 
-.kaart-tags span:hover {
-    background-color: #354f52;
+/* Status badge */
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
 }
 
-/* KNOPPEN */
-.delete-btn {
-    background: crimson;
-    border: none;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-left: 5px;
+/* Status kleuren */
+.status.actief {
+    background: #28a745;
 }
 
-.delete-btn:hover {
-    background: darkred;
+.status.inactief {
+    background: #dc3545;
 }
 
-.edit-btn {
-    background: #3a86ff;
-    border: none;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-left: 5px;
+.status.gepland {
+    background: #ffc107;
+    color: #000;
 }
 
-.edit-btn:hover {
-    background: #265df2;
+/* Beschrijving */
+.beschrijving {
+    margin: 15px 0;
+    color: #555;
 }
 
-/* ANIMATIE */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Info */
+.card-info p {
+    margin: 5px 0;
+    font-size: 14px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .activiteit-kaart {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .activiteit-kaart img {
-        width: 100%;
-        height: auto;
-    }
-
-    .form-container {
-        margin: 20px 10px;
-    }
-
-    #Activiteiten-page .navbar {
-        flex-direction: column;
-        gap: 10px;
-    }
+/* Footer */
+.card-footer {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #888;
 }
