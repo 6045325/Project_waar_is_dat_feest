@@ -1,7 +1,9 @@
 <div class="navbar">
 
     <div class="nav-left">
-        <img src="images/logo.png" alt="logo">
+<a href="index.php">
+    <img src="images/logo.png" alt="logo">
+</a>
         <h1><a href="index.php">Homepage</a></h1>   
         <h1><a href="activiteiten.php">activiteiten</a></h1>
     </div>

@@ -626,7 +626,7 @@ h1 a {
     justify-content: space-between;
     align-items: center;
     color: #CAD2C5;
-    position: relative; /* instead of fixed */
+    position: relative;
     width: 100%;
     z-index: 1000;
     /* remove top/left, no need to reserve space manually */
@@ -642,9 +642,10 @@ h1 a {
 #Activiteiten-page .nav-left img {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+        border-radius:50%;
+    overflow:hidden;
 }
+
 
 #Activiteiten-page .navbar h1 {
     font-size: 25px;
@@ -667,7 +668,8 @@ h1 a {
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #f4f6f9;
+    background-color: #CAD2C5;
+    color: #2F3E46;
     margin: 0;
 }
 
