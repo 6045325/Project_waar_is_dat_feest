@@ -2,6 +2,11 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+require_once 'classes/activiteitmanager.php';
+
+$manager = new ActiviteitenManager();
+$activiteiten = $manager->getAllActiviteiten(); 
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -12,52 +17,46 @@ ini_set('display_errors', 1);
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
-    <div id="Index-page">
-        <?php require_once 'includes/navbar.php'; ?>
-    </div>
 
-    <div class="container">
-    <h1>Activiteiten</h1>
-    <div id="activiteiten-lijst" class="cards"></div>
+<div id="Activiteiten-page">
+    <?php require_once 'includes/navbar.php'; ?>
 </div>
 
-<script>
-fetch('get_activiteiten.php')
-    .then(response => response.json())
-    .then(data => {
-        const container = document.getElementById('activiteiten-lijst');
+<div class="container">
+    <h1>Activiteiten</h1>
 
-        data.forEach(a => {
-            const card = document.createElement('div');
-            card.classList.add('card');
+    <div id="activiteiten-lijst" class="cards">
+        <?php foreach ($activiteiten as $a): ?>
+            <div class="card">
 
-            card.innerHTML = `
                 <div class="card-header">
-                    <h2>${a.activiteit_titel}</h2>
-                    <span class="status ${a.activiteit_status}">${a.activiteit_status}</span>
+                    <h2><?= htmlspecialchars($a['activiteit_titel']) ?></h2>
+                    <span class="status <?= htmlspecialchars($a['activiteit_status']) ?>">
+                        <?= htmlspecialchars($a['activiteit_status']) ?>
+                    </span>
                 </div>
 
-                <p class="beschrijving">${a.activiteit_beschrijving}</p>
+                <p class="beschrijving">
+                    <?= htmlspecialchars($a['activiteit_beschrijving']) ?>
+                </p>
 
                 <div class="card-info">
-                    <p><strong> Datum:</strong> ${a.activiteit_datum}</p>
-                    <p><strong> Tijd:</strong> ${a.activiteit_tijd}</p>
-                    <p><strong> Locatie:</strong> ${a.activiteit_locatie}</p>
-                    <p><strong> Soort:</strong> ${a.soort_activiteit}</p>
+                    <p><strong>Datum:</strong> <?= $a['activiteit_datum'] ?></p>
+                    <p><strong>Tijd:</strong> <?= $a['activiteit_tijd'] ?></p>
+                    <p><strong>Locatie:</strong> <?= htmlspecialchars($a['activiteit_locatie']) ?></p>
+                    <p><strong>Soort:</strong> <?= htmlspecialchars($a['soort_activiteit']) ?></p>
                 </div>
 
                 <div class="card-footer">
-                    <small>${a.activiteit_opmerkingen ?? ''}</small>
+                    <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
                 </div>
-            `;
 
-            container.appendChild(card);
-        });
-    });
-</script>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
 </body>
 </html>
-
