@@ -46,7 +46,10 @@ $searchTerm = $_GET['search'] ?? '';
 </div>
 
 <div class="container">
-    <h1>Activiteiten</h1>
+    <div class="page-header">
+        <h1>Activiteiten</h1>
+        <button id="add-activity-btn" class="btn-add">Nieuwe Activiteit Toevoegen</button>
+    </div>
 
     <!-- Filter & Zoek Controls -->
     <div class="activiteiten-controls">
@@ -167,7 +170,136 @@ $searchTerm = $_GET['search'] ?? '';
     </div>
 </div>
 
+<!-- Modal voor nieuwe activiteit -->
+<div id="add-activity-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Nieuwe Activiteit Toevoegen</h2>
+            <span class="close">&times;</span>
+        </div>
+        <form id="add-activity-form" class="activity-form">
+            <div class="form-group">
+                <label for="titel">Titel *</label>
+                <input type="text" id="titel" name="titel" required>
+            </div>
+
+            <div class="form-group">
+                <label for="beschrijving">Beschrijving *</label>
+                <textarea id="beschrijving" name="beschrijving" rows="4" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="datum">Datum *</label>
+                    <input type="date" id="datum" name="datum" required>
+                </div>
+                <div class="form-group">
+                    <label for="tijd">Tijd *</label>
+                    <input type="time" id="tijd" name="tijd" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="locatie">Locatie *</label>
+                <input type="text" id="locatie" name="locatie" required placeholder="bijv. Amsterdam, Rotterdam">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="soort">Soort Activiteit</label>
+                    <select id="soort" name="soort">
+                        <option value="Festival">Festival</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Theater">Theater</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Anders">Anders</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="gepland">Gepland</option>
+                        <option value="actief">Actief</option>
+                        <option value="inactief">Inactief</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="opmerkingen">Opmerkingen</label>
+                <textarea id="opmerkingen" name="opmerkingen" rows="2" placeholder="Optionele opmerkingen"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-cancel">Annuleren</button>
+                <button type="submit" class="btn-submit">Activiteit Toevoegen</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
+// Modal functionaliteit
+const modal = document.getElementById('add-activity-modal');
+const addBtn = document.getElementById('add-activity-btn');
+const closeBtn = document.querySelector('.close');
+const cancelBtn = document.querySelector('.btn-cancel');
+const form = document.getElementById('add-activity-form');
+
+// Modal openen
+addBtn.onclick = function() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// Modal sluiten
+function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    form.reset();
+}
+
+closeBtn.onclick = closeModal;
+cancelBtn.onclick = closeModal;
+
+// Klik buiten modal om te sluiten
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
+// Formulier verwerken
+form.onsubmit = function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    
+    // Voeg user_id toe (voor nu hardcoded, later uit session)
+    formData.append('user_id', 1); // TODO: Haal uit session
+    
+    fetch('classes/add_activiteit.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Activiteit succesvol toegevoegd!');
+            closeModal();
+            location.reload(); // Herlaad pagina om nieuwe activiteit te tonen
+        } else {
+            alert('Fout bij toevoegen: ' + (data.error || 'Onbekende fout'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Er is een fout opgetreden.');
+    });
+}
+
+// Bestaande functies
 function editActiviteit(id) {
     console.log('Edit activiteit:', id);
     // TODO: Implementeer edit modal of redirect naar edit pagina
