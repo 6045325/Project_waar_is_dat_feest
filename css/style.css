@@ -533,10 +533,10 @@ h1 a {
         to bottom,
         #CAD2C5 0%,
         #B7C6B7 10%,
-        #9FB79F 18%,
+        #84A98C 18%,
         #84A98C 25%,
         #84A98C 75%,
-        #9FB79F 82%,
+        #84A98C 82%,
         #B7C6B7 90%,
         #CAD2C5 100%
     );
@@ -688,21 +688,25 @@ h1 {
 /* Grid layout */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
 }
 
 /* Card styling */
 .card {
-    background: #fff;
+    background: #254F52;
     border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: 0.3s;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #84A98C;
+    color: #CAD2C5;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
 
 /* Header */
@@ -710,19 +714,22 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 .card-header h2 {
     margin: 0;
-    font-size: 20px;
+    font-size: 22px;
+    color: #CAD2C5;
 }
 
 /* Status badge */
 .status {
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 12px;
     color: #fff;
+    font-weight: 600;
 }
 
 /* Status kleuren */
@@ -742,20 +749,29 @@ h1 {
 /* Beschrijving */
 .beschrijving {
     margin: 15px 0;
-    color: #555;
+    color: #B7C6B7;
+    line-height: 1.6;
+    font-size: 15px;
 }
 
 /* Info */
 .card-info p {
-    margin: 5px 0;
+    margin: 8px 0;
     font-size: 14px;
+    color: #CAD2C5;
+}
+
+.card-info p strong {
+    color: #84A98C;
 }
 
 /* Footer */
 .card-footer {
     margin-top: 15px;
     font-size: 12px;
-    color: #888;
+    color: #84A98C;
+    border-top: 1px solid #84A98C;
+    padding-top: 10px;
 }
 
 /* Page Header */
@@ -900,20 +916,21 @@ h1 {
 .card-actions {
     margin-top: 20px;
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    justify-content: flex-end;
 }
 
 .btn-edit,
 .btn-delete {
-    padding: 8px 16px;
+    padding: 10px 18px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 0.9em;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .btn-edit {
@@ -923,6 +940,7 @@ h1 {
 
 .btn-edit:hover {
     background: #52796F;
+    transform: translateY(-2px);
 }
 
 .btn-delete {
@@ -932,6 +950,42 @@ h1 {
 
 .btn-delete:hover {
     background: #c82333;
+    transform: translateY(-2px);
+}
+
+/* Responsive voor kaarten */
+@media (max-width: 768px) {
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .card-header h2 {
+        font-size: 20px;
+    }
+
+    .beschrijving {
+        font-size: 14px;
+    }
+
+    .card-info p {
+        font-size: 13px;
+    }
+
+    .card-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 /* Modal */
