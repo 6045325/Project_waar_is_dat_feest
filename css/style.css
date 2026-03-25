@@ -756,3 +756,196 @@ h1 {
     font-size: 12px;
     color: #888;
 }
+
+/* ===== FILTER & SEARCH CONTROLS ===== */
+.activiteiten-controls {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.controls-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.control-group label {
+    font-weight: 600;
+    color: #254F52;
+    font-size: 14px;
+}
+
+.search-input {
+    padding: 10px 15px;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    width: 100%;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #84A98C;
+}
+
+.sort-select,
+.distance-select {
+    padding: 10px 12px;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    width: 100%;
+}
+
+.sort-select:focus,
+.distance-select:focus {
+    outline: none;
+    border-color: #84A98C;
+}
+
+.btn-search,
+.btn-reset {
+    padding: 10px 20px;
+    background: #84A98C;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-search:hover,
+.btn-reset:hover {
+    background: #52796F;
+}
+
+.btn-reset {
+    background: #B7B7B7;
+}
+
+.btn-reset:hover {
+    background: #999;
+}
+
+/* Results info */
+.results-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border-left: 4px solid #84A98C;
+}
+
+.results-info p {
+    margin: 0;
+    color: #555;
+    font-weight: 500;
+}
+
+/* No results */
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    background: #f5f5f5;
+    border-radius: 12px;
+}
+
+.no-results p {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* ===== CARD ACTIONS ===== */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.btn-edit,
+.btn-delete {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.btn-edit {
+    background: #84A98C;
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background: #52796F;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .controls-form {
+        flex-direction: column;
+    }
+
+    .control-group {
+        min-width: 100%;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-search,
+    .btn-reset {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .activiteiten-controls {
+        padding: 15px;
+    }
+
+    .control-group {
+        width: 100%;
+    }
+}
