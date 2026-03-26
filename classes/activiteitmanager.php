@@ -49,7 +49,8 @@ class ActiviteitenManager extends Database {
         string $activiteit_opmerkingen,
         int $user_id,
         float $lat,
-        float $lng
+        float $lng,
+        string $activiteit_afbeelding_url = ''
     ): bool {
 
         // Eerst coördinaten ophalen
@@ -69,7 +70,8 @@ class ActiviteitenManager extends Database {
                 activiteit_opmerkingen,
                 user_id,
                 lat,
-                lng
+                lng,
+                activiteit_afbeelding_url
             )
             VALUES (
                 :activiteit_titel,
@@ -82,12 +84,12 @@ class ActiviteitenManager extends Database {
                 :activiteit_opmerkingen,
                 :user_id,
                 :lat,
-                :lng
+                :lng,
+                :activiteit_afbeelding_url
             )
         ");
 
-        $stmt->bindParam(':activiteit_titel', $activiteit_titel);
-        $stmt->bindParam(':activiteit_beschrijving', $activiteit_beschrijving);
+        $stmt->bindParam(':activiteit_titel', $activiteit_titel);        $stmt->bindParam(':activiteit_beschrijving', $activiteit_beschrijving);
         $stmt->bindParam(':activiteit_datum', $activiteit_datum);
         $stmt->bindParam(':activiteit_tijd', $activiteit_tijd);
         $stmt->bindParam(':activiteit_locatie', $activiteit_locatie);
@@ -97,6 +99,7 @@ class ActiviteitenManager extends Database {
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':lat', $lat);
         $stmt->bindParam(':lng', $lng);
+        $stmt->bindParam(':activiteit_afbeelding_url', $activiteit_afbeelding_url);
 
         return $stmt->execute();
     }
@@ -162,7 +165,8 @@ class ActiviteitenManager extends Database {
         string $activiteit_locatie,
         string $soort_activiteit,
         string $activiteit_status,
-        string $activiteit_opmerkingen
+        string $activiteit_opmerkingen,
+        string $activiteit_afbeelding_url = ''
     ): bool {
 
         // Coördinaten opnieuw ophalen bij update
@@ -181,7 +185,8 @@ class ActiviteitenManager extends Database {
                 activiteit_status = :activiteit_status,
                 activiteit_opmerkingen = :activiteit_opmerkingen,
                 lat = :lat,
-                lng = :lng
+                lng = :lng,
+                activiteit_afbeelding_url = :activiteit_afbeelding_url
             WHERE `activiteit_id` = :id
         ");
 
@@ -195,6 +200,7 @@ class ActiviteitenManager extends Database {
         $stmt->bindParam(':activiteit_opmerkingen', $activiteit_opmerkingen);
         $stmt->bindParam(':lat', $lat);
         $stmt->bindParam(':lng', $lng);
+        $stmt->bindParam(':activiteit_afbeelding_url', $activiteit_afbeelding_url);
         $stmt->bindParam(':id', $activiteit_id);
 
         return $stmt->execute();

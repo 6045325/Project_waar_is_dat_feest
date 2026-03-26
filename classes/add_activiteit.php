@@ -21,6 +21,7 @@ foreach ($required_fields as $field) {
 
 try {
     $manager = new ActiviteitenManager();
+    $imageUrl = trim($_POST['image_url'] ?? '');
     
     // Gebruik de bestaande addVacature functie
     $success = $manager->addVacature(
@@ -34,7 +35,8 @@ try {
         trim($_POST['opmerkingen'] ?? ''),
         (int)$_POST['user_id'],
         0.0, // lat - wordt automatisch opgehaald via getCoordinatesFromAddress
-        0.0  // lng - wordt automatisch opgehaald via getCoordinatesFromAddress
+        0.0, // lng - wordt automatisch opgehaald via getCoordinatesFromAddress
+        $imageUrl
     );
     
     if ($success) {

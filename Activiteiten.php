@@ -140,27 +140,35 @@ $searchTerm = $_GET['search'] ?? '';
                     </span>
                 </div>
 
-                <p class="beschrijving">
-                    <?= htmlspecialchars($a['activiteit_beschrijving']) ?>
-                </p>
+                <?php if (!empty($a['activiteit_afbeelding_url'])): ?>
+                    <div class="card-image">
+                        <img src="<?= htmlspecialchars($a['activiteit_afbeelding_url']) ?>" alt="<?= htmlspecialchars($a['activiteit_titel']) ?>">
+                    </div>
+                <?php endif; ?>
 
-                <div class="card-info">
-                    <p><strong>Datum:</strong> <?= htmlspecialchars($a['activiteit_datum']) ?></p>
-                    <p><strong>Tijd:</strong> <?= htmlspecialchars($a['activiteit_tijd']) ?></p>
-                    <p><strong>Locatie:</strong> <?= htmlspecialchars($a['activiteit_locatie']) ?></p>
-                    <p><strong>Soort:</strong> <?= htmlspecialchars($a['soort_activiteit']) ?></p>
-                    <?php if (!empty($a['lat']) && !empty($a['lng'])): ?>
-                        <p><strong>Coördinaten:</strong> <?= number_format($a['lat'], 4) ?>, <?= number_format($a['lng'], 4) ?></p>
-                    <?php endif; ?>
-                </div>
+                <div class="card-content">
+                    <p class="beschrijving">
+                        <?= htmlspecialchars($a['activiteit_beschrijving']) ?>
+                    </p>
 
-                <div class="card-footer">
-                    <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
-                </div>
+                    <div class="card-info">
+                        <p><strong>Datum:</strong> <?= htmlspecialchars($a['activiteit_datum']) ?></p>
+                        <p><strong>Tijd:</strong> <?= htmlspecialchars($a['activiteit_tijd']) ?></p>
+                        <p><strong>Locatie:</strong> <?= htmlspecialchars($a['activiteit_locatie']) ?></p>
+                        <p><strong>Soort:</strong> <?= htmlspecialchars($a['soort_activiteit']) ?></p>
+                        <?php if (!empty($a['lat']) && !empty($a['lng'])): ?>
+                            <p><strong>Coördinaten:</strong> <?= number_format($a['lat'], 4) ?>, <?= number_format($a['lng'], 4) ?></p>
+                        <?php endif; ?>
+                    </div>
 
-                <div class="card-actions">
-                    <a href="#" class="btn-edit" onclick="editActiviteit(<?= $a['activiteit_id'] ?>)">Bewerken</a>
-                    <a href="#" class="btn-delete" onclick="deleteActiviteit(<?= $a['activiteit_id'] ?>, '<?= htmlspecialchars($a['activiteit_titel']) ?>')">Verwijderen</a>
+                    <div class="card-footer">
+                        <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="#" class="btn-edit" onclick="editActiviteit(<?= $a['activiteit_id'] ?>)">Bewerken</a>
+                        <a href="#" class="btn-delete" onclick="deleteActiviteit(<?= $a['activiteit_id'] ?>, '<?= htmlspecialchars($a['activiteit_titel']) ?>')">Verwijderen</a>
+                    </div>
                 </div>
             </div>
         <?php 
@@ -224,6 +232,11 @@ $searchTerm = $_GET['search'] ?? '';
                         <option value="inactief">Inactief</option>
                     </select>
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image_url">Afbeelding URL</label>
+                <input type="url" id="image_url" name="image_url" placeholder="https://example.com/afbeelding.jpg">
             </div>
 
             <div class="form-group">
