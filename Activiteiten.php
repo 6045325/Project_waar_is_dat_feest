@@ -133,43 +133,53 @@ $searchTerm = $_GET['search'] ?? '';
                 }
         ?>
             <div class="card">
-                <div class="card-header">
-                    <h2><?= htmlspecialchars($a['activiteit_titel']) ?></h2>
-                    <span class="status <?= htmlspecialchars($a['activiteit_status']) ?>">
-                        <?= htmlspecialchars($a['activiteit_status']) ?>
-                    </span>
+                <div class="card-left">
+                    <div class="card-header">
+                        <h2><?= htmlspecialchars($a['activiteit_titel']) ?></h2>
+                        <span class="status <?= htmlspecialchars($a['activiteit_status']) ?>">
+                            <?= htmlspecialchars($a['activiteit_status']) ?>
+                        </span>
+                    </div>
+
+                    <div class="card-content">
+                        <p class="beschrijving">
+                            <?= htmlspecialchars($a['activiteit_beschrijving']) ?>
+                        </p>
+
+                        <div class="card-info">
+                            <p><strong>Datum:</strong> <?= htmlspecialchars($a['activiteit_datum']) ?></p>
+                            <p><strong>Tijd:</strong> <?= htmlspecialchars($a['activiteit_tijd']) ?></p>
+                            <p><strong>Locatie:</strong> <?= htmlspecialchars($a['activiteit_locatie']) ?></p>
+                            <p><strong>Soort:</strong> <?= htmlspecialchars($a['soort_activiteit']) ?></p>
+                            <?php if (!empty($a['lat']) && !empty($a['lng'])): ?>
+                                <p><strong>Coördinaten:</strong> <?= number_format($a['lat'], 4) ?>, <?= number_format($a['lng'], 4) ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="card-footer">
+                            <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
+                        </div>
+
+                        <div class="card-actions">
+                            <a href="#" class="btn-edit" onclick="editActiviteit(<?= $a['activiteit_id'] ?>)">Bewerken</a>
+                            <a href="#" class="btn-delete" onclick="deleteActiviteit(<?= $a['activiteit_id'] ?>, '<?= htmlspecialchars($a['activiteit_titel']) ?>')">Verwijderen</a>
+                        </div>
+                    </div>
                 </div>
 
                 <?php if (!empty($a['activiteit_afbeelding_url'])): ?>
-                    <div class="card-image">
-                        <img src="<?= htmlspecialchars($a['activiteit_afbeelding_url']) ?>" alt="<?= htmlspecialchars($a['activiteit_titel']) ?>">
+                    <div class="card-right">
+                        <div class="card-image">
+                            <img src="<?= htmlspecialchars($a['activiteit_afbeelding_url']) ?>" alt="<?= htmlspecialchars($a['activiteit_titel']) ?>">
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="card-right">
+                        <div class="no-image">
+                            <p>Geen afbeelding beschikbaar</p>
+                        </div>
                     </div>
                 <?php endif; ?>
-
-                <div class="card-content">
-                    <p class="beschrijving">
-                        <?= htmlspecialchars($a['activiteit_beschrijving']) ?>
-                    </p>
-
-                    <div class="card-info">
-                        <p><strong>Datum:</strong> <?= htmlspecialchars($a['activiteit_datum']) ?></p>
-                        <p><strong>Tijd:</strong> <?= htmlspecialchars($a['activiteit_tijd']) ?></p>
-                        <p><strong>Locatie:</strong> <?= htmlspecialchars($a['activiteit_locatie']) ?></p>
-                        <p><strong>Soort:</strong> <?= htmlspecialchars($a['soort_activiteit']) ?></p>
-                        <?php if (!empty($a['lat']) && !empty($a['lng'])): ?>
-                            <p><strong>Coördinaten:</strong> <?= number_format($a['lat'], 4) ?>, <?= number_format($a['lng'], 4) ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="card-footer">
-                        <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
-                    </div>
-
-                    <div class="card-actions">
-                        <a href="#" class="btn-edit" onclick="editActiviteit(<?= $a['activiteit_id'] ?>)">Bewerken</a>
-                        <a href="#" class="btn-delete" onclick="deleteActiviteit(<?= $a['activiteit_id'] ?>, '<?= htmlspecialchars($a['activiteit_titel']) ?>')">Verwijderen</a>
-                    </div>
-                </div>
             </div>
         <?php 
             endforeach;
