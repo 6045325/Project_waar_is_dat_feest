@@ -767,14 +767,15 @@ h1 {
 /* Card right side (image) */
 .card-right {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 }
 
 /* Card image */
 .card-image {
     width: 100%;
-    height: 200px;
+    height: 100%;
+    min-height: 200px;
     overflow: hidden;
     border-radius: 12px;
     border: 1px solid #84A98C;
@@ -785,7 +786,18 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    object-position: center;
     display: block;
+    background-color: #1f3b4a; /* subtle background for letterboxing space */
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background-color: #1f3b4a; /* subtle background for letterboxing space */
 }
 
 /* No image placeholder */
