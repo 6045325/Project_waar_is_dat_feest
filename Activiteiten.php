@@ -330,7 +330,7 @@ $searchTerm = $_GET['search'] ?? '';
             </div>
 
             <div class="form-actions">
-                <button type="button" class="edit-cancel">Annuleren</button>
+                <button type="button" class="btn-edit-cancel">Annuleren</button>
                 <button type="submit" class="btn-submit">Activiteit Bijwerken</button>
             </div>
         </form>
@@ -348,7 +348,7 @@ const form = document.getElementById('add-activity-form');
 // Edit modal
 const editModal = document.getElementById('edit-activity-modal');
 const editCloseBtn = document.querySelector('.edit-close');
-const editCancelBtn = document.querySelector('.edit-cancel');
+const editCancelBtn = document.querySelector('.btn-edit-cancel');
 const editForm = document.getElementById('edit-activity-form');
 
 // Modal openen

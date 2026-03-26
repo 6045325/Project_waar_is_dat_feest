@@ -1122,8 +1122,30 @@ h1 {
     transition: color 0.3s ease;
 }
 
-.close:hover {
+.close:hover,
+.edit-close:hover {
     color: #84A98C;
+}
+
+.edit-close {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #CAD2C5;
+    transition: color 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 2% auto;
+    padding: 0;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: modalFadeIn 0.3s ease-out;
 }
 
 /* Form */
@@ -1189,32 +1211,50 @@ h1 {
 }
 
 .btn-cancel,
-.btn-submit {
+.btn-submit,
+.btn-edit-cancel {
     padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
+    border: 1px solid transparent;
+    border-radius: 10px;
     font-size: 1em;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-.btn-cancel {
-    background: #CAD2C5;
-    color: #2F3E46;
+.btn-cancel,
+.btn-edit-cancel {
+    background: #FDFEFE;
+    color: #1F3E46;
+    border-color: #CBD5CB;
 }
 
-.btn-cancel:hover {
-    background: #B0BFA1;
+.btn-cancel:hover,
+.btn-edit-cancel:hover {
+    background: #E5EFE7;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
+    border-color: #A6B8AB;
 }
 
 .btn-submit {
-    background: #84A98C;
-    color: #CAD2C5;
+    background: linear-gradient(135deg, #84A98C 0%, #52796F 100%);
+    color: #fff;
+    border-color: #3A5E5A;
 }
 
 .btn-submit:hover {
-    background: #52796F;
+    background: linear-gradient(135deg, #5C7E73 0%, #2D453F 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cancel:focus,
+.btn-edit-cancel:focus,
+.btn-submit:focus {
+    outline: 3px solid rgba(132, 169, 140, 0.35);
+    outline-offset: 2px;
 }
 
 /* Responsive */
