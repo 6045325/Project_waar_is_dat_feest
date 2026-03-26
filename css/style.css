@@ -1295,3 +1295,261 @@ h1 {
         font-size: 2em;
     }
 }
+
+/* ====================== DETAIL MODAL STYLES ====================== */
+
+.detail-modal-content {
+    max-width: 800px;
+    max-height: 85vh;
+}
+
+.activity-detail {
+    padding: 30px;
+}
+
+.detail-body {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.detail-section {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #84A98C;
+}
+
+.detail-section h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.1em;
+    color: #254F52;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-section p {
+    margin: 0;
+    color: #2F3E46;
+    line-height: 1.6;
+}
+
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #84A98C;
+}
+
+.detail-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #254F52;
+    font-size: 0.95em;
+}
+
+.detail-value {
+    color: #2F3E46;
+    padding: 8px 12px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #CAD2C5;
+}
+
+.detail-value.status {
+    width: fit-content;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.participants-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.participants-header h3 {
+    margin: 0;
+    color: #254F52;
+    font-size: 1.1em;
+}
+
+.participant-count {
+    background: #84A98C;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.participant-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.participant-item {
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #CAD2C5;
+    border-radius: 8px;
+    color: #2F3E46;
+    font-size: 0.95em;
+}
+
+.no-participants {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+}
+
+.detail-guest-section {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #B59410;
+}
+
+.detail-guest-section h3 {
+    margin: 0 0 15px 0;
+    color: #254F52;
+    font-size: 1.1em;
+}
+
+.guest-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.guest-form .form-group {
+    flex: 1;
+    min-width: 200px;
+    margin: 0;
+}
+
+.guest-email {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #CAD2C5;
+    border-radius: 6px;
+    font-size: 0.95em;
+    color: #2F3E46;
+}
+
+.guest-email:focus {
+    outline: none;
+    border-color: #84A98C;
+    box-shadow: 0 0 0 2px rgba(132, 169, 140, 0.2);
+}
+
+.btn-invite {
+    padding: 10px 20px;
+    background: #B59410;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-invite:hover {
+    background: #927800;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #CAD2C5;
+    flex-wrap: wrap;
+}
+
+.detail-actions .btn-edit,
+.detail-actions .btn-close {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.detail-actions .btn-edit {
+    background: #84A98C;
+    color: #CAD2C5;
+}
+
+.detail-actions .btn-edit:hover {
+    background: #52796F;
+    transform: translateY(-2px);
+}
+
+.detail-actions .btn-close {
+    background: #CAD2C5;
+    color: #254F52;
+}
+
+.detail-actions .btn-close:hover {
+    background: #B0BFA1;
+    transform: translateY(-2px);
+}
+
+/* Responsive for detail modal */
+@media (max-width: 768px) {
+    .detail-modal-content {
+        width: 95%;
+        max-width: 95%;
+    }
+
+    .activity-detail {
+        padding: 20px;
+    }
+
+    .detail-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .guest-form {
+        flex-direction: column;
+    }
+
+    .guest-form .form-group {
+        min-width: auto;
+    }
+
+    .btn-invite {
+        width: 100%;
+    }
+
+    .detail-actions {
+        flex-direction: column;
+    }
+
+    .detail-actions .btn-edit,
+    .detail-actions .btn-close {
+        width: 100%;
+        text-align: center;
+    }
+}

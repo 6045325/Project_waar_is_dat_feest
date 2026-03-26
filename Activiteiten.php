@@ -132,7 +132,7 @@ $searchTerm = $_GET['search'] ?? '';
                     }
                 }
         ?>
-            <div class="card">
+            <div class="card" onclick="openDetailModal(<?= $a['activiteit_id'] ?>)" style="cursor: pointer;">
                 <div class="card-left">
                     <div class="card-header">
                         <h2><?= htmlspecialchars($a['activiteit_titel']) ?></h2>
@@ -161,8 +161,8 @@ $searchTerm = $_GET['search'] ?? '';
                         </div>
 
                         <div class="card-actions">
-                            <a href="#" class="btn-edit" onclick="editActiviteit(<?= $a['activiteit_id'] ?>)">Bewerken</a>
-                            <a href="#" class="btn-delete" onclick="deleteActiviteit(<?= $a['activiteit_id'] ?>, '<?= htmlspecialchars($a['activiteit_titel']) ?>')">Verwijderen</a>
+                            <a href="#" class="btn-edit" onclick="event.stopPropagation(); editActiviteit(<?= $a['activiteit_id'] ?>); return false;">Bewerken</a>
+                            <a href="#" class="btn-delete" onclick="event.stopPropagation(); deleteActiviteit(<?= $a['activiteit_id'] ?>, '<?= htmlspecialchars($a['activiteit_titel']) ?>'); return false;">Verwijderen</a>
                         </div>
                     </div>
                 </div>
@@ -337,6 +337,19 @@ $searchTerm = $_GET['search'] ?? '';
     </div>
 </div>
 
+<!-- Modal voor activiteit detail bekijken -->
+<div id="detail-activity-modal" class="modal">
+    <div class="modal-content detail-modal-content">
+        <div class="modal-header">
+            <h2 id="detail-titel">Activiteit Details</h2>
+            <span class="detail-close">&times;</span>
+        </div>
+        <div id="detail-content" class="activity-detail">
+            <!-- Content wordt geladen via JavaScript -->
+        </div>
+    </div>
+</div>
+
 <script>
 // Modal functionaliteit
 const modal = document.getElementById('add-activity-modal');
@@ -375,13 +388,28 @@ cancelBtn.onclick = closeModal;
 editCloseBtn.onclick = closeEditModal;
 editCancelBtn.onclick = closeEditModal;
 
-// Klik buiten modal om te sluiten
+// Detail modal
+const detailModal = document.getElementById('detail-activity-modal');
+const detailCloseBtn = document.querySelector('.detail-close');
+const detailContent = document.getElementById('detail-content');
+
+// Detail modal sluiten
+detailCloseBtn.onclick = function() {
+    detailModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    detailContent.innerHTML = '';
+}
+
+// Klik buiten detail modal om te sluiten
 window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
     if (event.target == editModal) {
         closeEditModal();
+    }
+    if (event.target == detailModal) {
+        detailCloseBtn.onclick();
     }
 }
 
@@ -499,6 +527,148 @@ function deleteActiviteit(id, titel) {
         });
     }
     return false;
+}
+
+// Detail view function
+function openDetailModal(id) {
+    fetch('classes/get_activiteit_detail.php?id=' + id)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const activiteit = data.data;
+            const participants = data.participants || [];
+            
+            // Set title
+            document.getElementById('detail-titel').textContent = activiteit.activiteit_titel;
+            
+            // Build HTML content
+            let html = `
+                <div class="detail-body">
+                    <div class="detail-section">
+                        <h3>Beschrijving</h3>
+                        <p>${escapeHtml(activiteit.activiteit_beschrijving)}</p>
+                    </div>
+                    
+                    <div class="detail-info-grid">
+                        <div class="detail-info-item">
+                            <span class="detail-label">📅 Datum:</span>
+                            <span class="detail-value">${escapeHtml(activiteit.activiteit_datum)}</span>
+                        </div>
+                        <div class="detail-info-item">
+                            <span class="detail-label">⏰ Tijd:</span>
+                            <span class="detail-value">${escapeHtml(activiteit.activiteit_tijd)}</span>
+                        </div>
+                        <div class="detail-info-item">
+                            <span class="detail-label">📍 Locatie:</span>
+                            <span class="detail-value">${escapeHtml(activiteit.activiteit_locatie)}</span>
+                        </div>
+                        <div class="detail-info-item">
+                            <span class="detail-label">🎪 Soort:</span>
+                            <span class="detail-value">${escapeHtml(activiteit.soort_activiteit)}</span>
+                        </div>
+                        <div class="detail-info-item">
+                            <span class="detail-label">📊 Status:</span>
+                            <span class="detail-value status ${escapeHtml(activiteit.activiteit_status)}">${escapeHtml(activiteit.activiteit_status)}</span>
+                        </div>
+            `;
+            
+            if (activiteit.lat && activiteit.lng) {
+                html += `
+                        <div class="detail-info-item">
+                            <span class="detail-label">🗺️ Coördinaten:</span>
+                            <span class="detail-value">${(Math.round(activiteit.lat * 10000) / 10000)}, ${(Math.round(activiteit.lng * 10000) / 10000)}</span>
+                        </div>
+                `;
+            }
+            
+            html += `
+                    </div>
+            `;
+            
+            if (activiteit.activiteit_opmerkingen) {
+                html += `
+                    <div class="detail-section">
+                        <h3>Opmerkingen</h3>
+                        <p>${escapeHtml(activiteit.activiteit_opmerkingen)}</p>
+                    </div>
+                `;
+            }
+            
+            // Participants section
+            html += `
+                    <div class="detail-section">
+                        <div class="participants-header">
+                            <h3>Deelnemers</h3>
+                            <span class="participant-count">${participants.length}</span>
+                        </div>
+            `;
+            
+            if (participants.length > 0) {
+                html += '<ul class="participant-list">';
+                participants.forEach(p => {
+                    html += `<li class="participant-item">👤 ${escapeHtml(p.naam || p.username || 'Onbekend')}</li>`;
+                });
+                html += '</ul>';
+            } else {
+                html += '<p class="no-participants">Nog geen deelnemers.</p>';
+            }
+            
+            html += `
+                    </div>
+                    
+                    <div class="detail-guest-section">
+                        <h3>Gast uitnodigen</h3>
+                        <form class="guest-form" onsubmit="inviteGuest(event, ${id})">
+                            <div class="form-group">
+                                <input type="email" placeholder="E-mailadres gast" required class="guest-email">
+                            </div>
+                            <button type="submit" class="btn-invite">Gast uitnodigen</button>
+                        </form>
+                    </div>
+                    
+                    <div class="detail-actions">
+                        <button class="btn-edit" onclick="editActiviteit(${id}); detailCloseBtn.onclick();">Bewerken</button>
+                        <button class="btn-close" onclick="detailCloseBtn.onclick();">Sluiten</button>
+                    </div>
+                </div>
+            `;
+            
+            detailContent.innerHTML = html;
+            detailModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        } else {
+            alert('Fout bij ophalen activiteit: ' + (data.error || 'Onbekende fout'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Er is een fout opgetreden bij het ophalen van de activiteit.');
+    });
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Invite guest function
+function inviteGuest(event, activityId) {
+    event.preventDefault();
+    const emailInput = document.querySelector('.guest-email');
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+        alert('Voer een e-mailadres in');
+        return;
+    }
+    
+    // TODO: Implement server-side guest invitation
+    // For now, just show a confirmation
+    alert(`Uitnodiging verzonden naar ${email}`);
+    emailInput.value = '';
 }
 </script>
 
