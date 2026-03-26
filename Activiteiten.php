@@ -252,6 +252,81 @@ $searchTerm = $_GET['search'] ?? '';
     </div>
 </div>
 
+<!-- Modal voor activiteit bewerken -->
+<div id="edit-activity-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Activiteit Bewerken</h2>
+            <span class="edit-close">&times;</span>
+        </div>
+        <form id="edit-activity-form" class="activity-form">
+            <input type="hidden" id="edit-id" name="id">
+            <div class="form-group">
+                <label for="edit-titel">Titel *</label>
+                <input type="text" id="edit-titel" name="titel" required>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-beschrijving">Beschrijving *</label>
+                <textarea id="edit-beschrijving" name="beschrijving" rows="4" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="edit-datum">Datum *</label>
+                    <input type="date" id="edit-datum" name="datum" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-tijd">Tijd *</label>
+                    <input type="time" id="edit-tijd" name="tijd" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-locatie">Locatie *</label>
+                <input type="text" id="edit-locatie" name="locatie" required placeholder="bijv. Amsterdam, Rotterdam">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="edit-soort">Soort Activiteit</label>
+                    <select id="edit-soort" name="soort">
+                        <option value="Festival">Festival</option>
+                        <option value="Concert">Concert</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Theater">Theater</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Anders">Anders</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-status">Status</label>
+                    <select id="edit-status" name="status">
+                        <option value="gepland">Gepland</option>
+                        <option value="actief">Actief</option>
+                        <option value="inactief">Inactief</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="edit-image_url">Afbeelding URL</label>
+                <input type="url" id="edit-image_url" name="image_url" placeholder="https://example.com/afbeelding.jpg">
+            </div>
+
+            <div class="form-group">
+                <label for="edit-opmerkingen">Opmerkingen</label>
+                <textarea id="edit-opmerkingen" name="opmerkingen" rows="2" placeholder="Optionele opmerkingen"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="edit-cancel">Annuleren</button>
+                <button type="submit" class="btn-submit">Activiteit Bijwerken</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 // Modal functionaliteit
 const modal = document.getElementById('add-activity-modal');
@@ -260,30 +335,47 @@ const closeBtn = document.querySelector('.close');
 const cancelBtn = document.querySelector('.btn-cancel');
 const form = document.getElementById('add-activity-form');
 
+// Edit modal
+const editModal = document.getElementById('edit-activity-modal');
+const editCloseBtn = document.querySelector('.edit-close');
+const editCancelBtn = document.querySelector('.edit-cancel');
+const editForm = document.getElementById('edit-activity-form');
+
 // Modal openen
 addBtn.onclick = function() {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
 
-// Modal sluiten
+// Modal sluiten functies
 function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
     form.reset();
 }
 
+function closeEditModal() {
+    editModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    editForm.reset();
+}
+
 closeBtn.onclick = closeModal;
 cancelBtn.onclick = closeModal;
+editCloseBtn.onclick = closeEditModal;
+editCancelBtn.onclick = closeEditModal;
 
 // Klik buiten modal om te sluiten
 window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
+    if (event.target == editModal) {
+        closeEditModal();
+    }
 }
 
-// Formulier verwerken
+// Formulier verwerken voor toevoegen
 form.onsubmit = function(e) {
     e.preventDefault();
     
@@ -312,11 +404,64 @@ form.onsubmit = function(e) {
     });
 }
 
+// Edit formulier verwerken
+editForm.onsubmit = function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(editForm);
+    
+    fetch('classes/update_activiteit.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Activiteit succesvol bijgewerkt!');
+            closeEditModal();
+            location.reload();
+        } else {
+            alert('Fout bij bijwerken: ' + (data.error || 'Onbekende fout'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Er is een fout opgetreden.');
+    });
+}
+
 // Bestaande functies
 function editActiviteit(id) {
-    console.log('Edit activiteit:', id);
-    // TODO: Implementeer edit modal of redirect naar edit pagina
-    alert('Edit functionaliteit: activiteit ' + id + '\n\nMaak een edit-pagina aan of voeg een modal toe.');
+    // Haal activiteit data op
+    fetch('classes/get_activiteit.php?id=' + id)
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const activiteit = data.data;
+            
+            // Vul de form in
+            document.getElementById('edit-id').value = activiteit.activiteit_id;
+            document.getElementById('edit-titel').value = activiteit.activiteit_titel;
+            document.getElementById('edit-beschrijving').value = activiteit.activiteit_beschrijving;
+            document.getElementById('edit-datum').value = activiteit.activiteit_datum;
+            document.getElementById('edit-tijd').value = activiteit.activiteit_tijd;
+            document.getElementById('edit-locatie').value = activiteit.activiteit_locatie;
+            document.getElementById('edit-soort').value = activiteit.soort_activiteit;
+            document.getElementById('edit-status').value = activiteit.activiteit_status;
+            document.getElementById('edit-image_url').value = activiteit.activiteit_afbeelding_url || '';
+            document.getElementById('edit-opmerkingen').value = activiteit.activiteit_opmerkingen || '';
+            
+            // Open modal
+            editModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        } else {
+            alert('Fout bij ophalen activiteit: ' + (data.error || 'Onbekende fout'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Er is een fout opgetreden bij het ophalen van de activiteit.');
+    });
 }
 
 function deleteActiviteit(id, titel) {
