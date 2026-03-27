@@ -4,10 +4,13 @@ use BcMath\Number;
 
 require_once "connection.php";
 
-class ActiviteitenManager extends Database {
+class ActiviteitenManager {
+    private PDO $db;
+
     public function __construct() {
-        parent::__construct();
+        $this->db = Database::getInstance();
     }
+
 
     /**
      * Haal coördinaten op via OpenStreetMap (Nominatim)
@@ -58,7 +61,7 @@ class ActiviteitenManager extends Database {
         $lat = $coords['lat'] ?? null;
         $lng = $coords['lng'] ?? null;
 
-        $stmt = $this->getConnection()->prepare("
+        $stmt = $this->db->prepare("
             INSERT INTO activiteit (
                 activiteit_titel,
                 activiteit_beschrijving,
@@ -106,7 +109,7 @@ class ActiviteitenManager extends Database {
 
     #R (Read) - alle activiteiten
     public function getAllActiviteiten(): array {
-        $stmt = $this->getConnection()->prepare("
+        $stmt = $this->db->prepare("
             SELECT * FROM activiteit ORDER BY `activiteit_titel` ASC
         ");
         if ($stmt->execute()) {
@@ -117,7 +120,7 @@ class ActiviteitenManager extends Database {
 
     #R (Read) - enkele activiteit op ID
     public function getActiviteitById(int $id): ?array {
-        $stmt = $this->getConnection()->prepare("
+        $stmt = $this->db->prepare("
             SELECT * FROM activiteit WHERE `activiteit_id` = :id
         ");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -142,7 +145,7 @@ class ActiviteitenManager extends Database {
             ORDER BY distance ASC
         ";
 
-        $stmt = $this->getConnection()->prepare($sql);
+        $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':lat', $lat);
         $stmt->bindValue(':lng', $lng);
         $stmt->bindValue(':maxDistanceKm', $maxDistanceKm);
@@ -151,7 +154,7 @@ class ActiviteitenManager extends Database {
     }
 
     public function getAllActiviteitenSortedByDate() {
-        $stmt = $this->getConnection()->query("SELECT * FROM activiteit ORDER BY activiteit_datum DESC");
+        $stmt = $this->db->prepare("SELECT * FROM activiteit ORDER BY activiteit_datum DESC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -174,7 +177,7 @@ class ActiviteitenManager extends Database {
         $lat = $coords['lat'] ?? null;
         $lng = $coords['lng'] ?? null;
 
-        $stmt = $this->getConnection()->prepare("
+        $stmt = $this->db->prepare("
             UPDATE activiteit SET 
                 activiteit_titel = :activiteit_titel,
                 activiteit_beschrijving = :activiteit_beschrijving,
@@ -211,7 +214,7 @@ class ActiviteitenManager extends Database {
 
         if (!$id) return false;
 
-        $stmt = $this->getConnection()->prepare("DELETE FROM activiteit WHERE `activiteit_id` = :id");
+        $stmt = $this->db->prepare("DELETE FROM activiteit WHERE `activiteit_id` = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
