@@ -6,14 +6,14 @@ require_once 'User.php';
 
 class UserManager extends Database
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    private PDO $db;
 
+    public function __construct() {
+        $this->db = Database::getInstance();
+    }
     public function verifyUser(string $username, string $password): ?User
     {
-        $stmt = $this->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "SELECT ID, username, password FROM users WHERE username = :username"
         );
 
@@ -38,7 +38,7 @@ class UserManager extends Database
 
     public function getAllUsers(): array
     {
-        $stmt = $this->getConnection()->query(
+        $stmt = $this->db->query(
             "SELECT ID, username FROM users"
         );
 
@@ -53,7 +53,7 @@ class UserManager extends Database
 
     public function deleteUser(int $userId): bool
     {
-        $stmt = $this->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "DELETE FROM users WHERE ID = :id"
         );
 
@@ -64,7 +64,7 @@ class UserManager extends Database
 
     public function addUser(string $username, string $password): ?User
     {
-        $stmt = $this->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "SELECT ID FROM users WHERE username = :username"
         );
 
@@ -78,7 +78,7 @@ class UserManager extends Database
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $this->getConnection()->prepare(
+        $stmt = $this->db->prepare(
             "INSERT INTO users (username, password) VALUES (:username, :password)"
         );
 
@@ -87,7 +87,7 @@ class UserManager extends Database
             'password' => $hashedPassword
         ]);
 
-        $id = (int)$this->getConnection()->lastInsertId();
+        $id = (int)$this->db->lastInsertId();
 
         return new User($id, $username);
     }
