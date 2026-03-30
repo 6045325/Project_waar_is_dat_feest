@@ -32,7 +32,7 @@ export default class Forms {
         const data = await Auth.login(formData);
 
         if (data.success) {
-            window.location.href = "../dashboard.php";
+            window.location.href = "index.php";
         } else {
             this.loginError.innerText = data.message;
         }
@@ -48,9 +48,11 @@ export default class Forms {
 
         if (data.success) {
 
-            this.loginError.style.color = "lightgreen";
-            this.loginError.innerText = data.message;
+            this.signupError.style.color = "lightgreen";
+            this.signupError.innerText = data.message || "Account succesvol aangemaakt.";
             document.getElementById("chk").checked = false;
+
+            this.signupForm.reset();
 
         } else {
 

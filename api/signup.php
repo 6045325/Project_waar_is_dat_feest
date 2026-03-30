@@ -42,6 +42,7 @@ if (!$user) {
 
 echo json_encode([
     "success" => true,
+    "message" => "Account succesvol aangemaakt.",
     "user" => $user->toArray()
 ]);
 
