@@ -1162,7 +1162,31 @@ h1 {
 /* Form */
 .activity-form {
     padding: 32px;
-    background-color: #fafbfb;
+    background-color: #CAD2C5;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background: #f4f9f4;
+    border-radius: 16px;
+    border: 1px solid #84A98C;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+    padding: 24px;
+    background: #f4f9f4;
+    border-radius: 16px;
+    border: 1px solid #84A98C;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
 }
 
 .form-row {
@@ -1188,6 +1212,16 @@ h1 {
     color: #254F52;
     font-size: 0.95em;
     letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group label i {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    color: #84A98C;
 }
 
 .form-group label::after {
@@ -1379,6 +1413,16 @@ h1 {
         width: 100%;
         padding: 14px 20px;
     }
+
+    .form-section {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
 }
 
 /* ====================== DETAIL MODAL STYLES ====================== */
@@ -1412,7 +1456,7 @@ h1 {
     font-size: 1.15em;
     color: #254F52;
     display: flex;
-    align-items: center;
+
     gap: 8px;
     font-weight: 700;
 }
