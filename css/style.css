@@ -695,7 +695,7 @@ h1 {
 
 /* Card styling */
 .card {
-    background: #254F52;
+    background: #f4f9f4;
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -724,7 +724,7 @@ h1 {
 .card-header h2 {
     margin: 0;
     font-size: 22px;
-    color: #CAD2C5;
+    color: #3c5637;
 }
 
 /* Status badge */
@@ -753,7 +753,7 @@ h1 {
 /* Beschrijving */
 .beschrijving {
     margin: 15px 0;
-    color: #B7C6B7;
+    color: #3c5637;
     line-height: 1.6;
     font-size: 15px;
 }
@@ -817,11 +817,13 @@ h1 {
 .card-info p {
     margin: 8px 0;
     font-size: 14px;
-    color: #CAD2C5;
+    color: #000000;
+     font-family: 'Fredoka', sans-serif;
 }
 
 .card-info p strong {
-    color: #84A98C;
+    color: #3c5637;
+     font-family: 'Fredoka', sans-serif;
 }
 
 /* Footer */
@@ -850,7 +852,7 @@ h1 {
 /* Add Activity Button */
 .btn-add {
     background: #84A98C;
-    color: #CAD2C5;
+    color: #1b1b1a;
     border: none;
     padding: 12px 24px;
     border-radius: 8px;
@@ -866,7 +868,7 @@ h1 {
 
 /* Controls */
 .activiteiten-controls {
-    background: #fff;
+    background: #fcf8f8;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -925,7 +927,7 @@ h1 {
 
 .btn-search {
     background: #84A98C;
-    color: #CAD2C5;
+    color: #1b1b1a;
 }
 
 .btn-search:hover {
@@ -934,7 +936,7 @@ h1 {
 
 .btn-reset {
     background: #CAD2C5;
-    color: #2F3E46;
+    color: #1b1b1a;
     text-decoration: none;
     display: inline-block;
     text-align: center;
@@ -994,7 +996,7 @@ h1 {
 
 .btn-edit {
     background: #84A98C;
-    color: #CAD2C5;
+    color: #1b1b1a;
 }
 
 .btn-edit:hover {
@@ -1102,7 +1104,7 @@ h1 {
     align-items: center;
     padding: 20px 30px;
     border-bottom: 1px solid #CAD2C5;
-    background: #254F52;
+    background: #4e5c4a;
     color: #CAD2C5;
     border-radius: 12px 12px 0 0;
 }
