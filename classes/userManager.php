@@ -45,7 +45,7 @@ class UserManager extends Database
         $users = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = User::fromArray($row);
+            $users[] = User::fromArray($row); 
         }
 
         return $users;
