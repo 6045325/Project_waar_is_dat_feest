@@ -16,8 +16,15 @@ class User
 
     public static function fromArray(array $data): User
     {
+        $id = 0;
+        if (isset($data['user_id'])) {
+            $id = (int)$data['user_id'];
+        } elseif (isset($data['ID'])) {
+            $id = (int)$data['ID'];
+        }
+
         return new User(
-            (int)$data['ID'],
+            $id,
             $data['username'],
             $data['password'] ?? ""
         );

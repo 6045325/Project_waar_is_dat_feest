@@ -14,7 +14,7 @@ class UserManager extends Database
     public function verifyUser(string $username, string $password): ?User
     {
         $stmt = $this->db->prepare(
-            "SELECT ID, username, password FROM users WHERE username = :username"
+            "SELECT user_id AS ID, username, password FROM users WHERE username = :username"
         );
 
         $stmt->execute([
@@ -39,7 +39,7 @@ class UserManager extends Database
     public function getAllUsers(): array
     {
         $stmt = $this->db->query(
-            "SELECT ID, username FROM users"
+            "SELECT user_id AS ID, username FROM users"
         );
 
         $users = [];
@@ -54,7 +54,7 @@ class UserManager extends Database
     public function deleteUser(int $userId): bool
     {
         $stmt = $this->db->prepare(
-            "DELETE FROM users WHERE ID = :id"
+            "DELETE FROM users WHERE user_id = :id"
         );
 
         return $stmt->execute([
@@ -65,7 +65,7 @@ class UserManager extends Database
     public function addUser(string $username, string $password): ?User
     {
         $stmt = $this->db->prepare(
-            "SELECT ID FROM users WHERE username = :username"
+            "SELECT user_id FROM users WHERE username = :username"
         );
 
         $stmt->execute([

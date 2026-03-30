@@ -5,12 +5,15 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/../autoload.php';
 
-$userManager = new UserManager();
+header('Content-Type: application/json');
 
-$username = trim($_POST['username'] ?? '');
-$password = trim($_POST['password'] ?? '');
+try {
+    $userManager = new UserManager();
 
-if (!$username || !$password) {
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+
+    if (!$username || !$password) {
     echo json_encode([
         "success" => false,
         "message" => "Vul alle velden in."
@@ -32,3 +35,11 @@ echo json_encode([
     "success" => true,
     "user" => $user->toArray()
 ]);
+
+} catch (Throwable $e) {
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "message" => "Server error: " . $e->getMessage()
+    ]);
+}
