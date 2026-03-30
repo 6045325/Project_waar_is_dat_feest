@@ -1390,7 +1390,7 @@ h1 {
 
 .activity-detail {
     padding: 32px;
-    background-color: #fafbfb;
+    background-color: #CAD2C5;
 }
 
 .detail-body {
@@ -1401,10 +1401,10 @@ h1 {
 
 .detail-section {
     padding: 24px;
-    background: linear-gradient(135deg, #f8faf9 0%, #f5fdf6 100%);
-    border-radius: 12px;
-    border-left: 4px solid #84A98C;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    background: #f4f9f4;
+    border-radius: 16px;
+    border: 1px solid #84A98C;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .detail-section h3 {
@@ -1429,10 +1429,10 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 18px;
     padding: 24px;
-    background: linear-gradient(135deg, #f8faf9 0%, #f5fdf6 100%);
-    border-radius: 12px;
-    border-left: 4px solid #84A98C;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    background: #f4f9f4;
+    border-radius: 16px;
+    border: 1px solid #84A98C;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .detail-info-item {
@@ -1450,11 +1450,11 @@ h1 {
 }
 
 .detail-value {
-    color: #2F3E46;
+    color: #3c5637;
     padding: 10px 14px;
     background: #ffffff;
     border-radius: 8px;
-    border: 1px solid #dfe5e0;
+    border: 1px solid #84A98C;
     font-size: 0.95em;
 }
 
@@ -1504,17 +1504,17 @@ h1 {
 .participant-item {
     padding: 14px 16px;
     background: #ffffff;
-    border: 1px solid #dfe5e0;
+    border: 1px solid #84A98C;
     border-radius: 10px;
-    color: #2F3E46;
+    color: #3c5637;
     font-size: 0.95em;
     transition: all 0.25s ease;
 }
 
 .participant-item:hover {
-    border-color: #84A98C;
-    background-color: #f8faf9;
-    box-shadow: 0 2px 8px rgba(132, 169, 140, 0.1);
+    border-color: #52796F;
+    background-color: #f4f9f4;
+    box-shadow: 0 4px 12px rgba(132, 169, 140, 0.15);
 }
 
 .no-participants {
@@ -1522,17 +1522,17 @@ h1 {
     color: #999;
     font-style: italic;
     padding: 24px;
-    background: #f8fef9;
+    background: #ffffff;
     border-radius: 10px;
-    border: 1px dashed #dfe5e0;
+    border: 1px dashed #84A98C;
 }
 
 .detail-guest-section {
     padding: 24px;
-    background: linear-gradient(135deg, #faf9f6 0%, #f9f8f4 100%);
-    border-radius: 12px;
-    border-left: 4px solid #B59410;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    background: #f4f9f4;
+    border-radius: 16px;
+    border: 1px solid #84A98C;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .detail-guest-section h3 {
@@ -1558,7 +1558,7 @@ h1 {
 .guest-email {
     width: 100%;
     padding: 12px 16px;
-    border: 2px solid #e8dcc8;
+    border: 2px solid #e0e6e1;
     border-radius: 8px;
     font-size: 0.95em;
     color: #2F3E46;
@@ -1568,32 +1568,32 @@ h1 {
 
 .guest-email:focus {
     outline: none;
-    border-color: #B59410;
-    box-shadow: 0 0 0 4px rgba(181, 148, 16, 0.15);
+    border-color: #84A98C;
+    box-shadow: 0 0 0 4px rgba(132, 169, 140, 0.15);
 }
 
 .btn-invite {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #B59410 0%, #927800 100%);
-    color: #fff;
+    background: #84A98C;
+    color: #1b1b1a;
     border: none;
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(181, 148, 16, 0.25);
+    box-shadow: 0 4px 12px rgba(132, 169, 140, 0.25);
 }
 
 .btn-invite:hover {
-    background: linear-gradient(135deg, #927800 0%, #704500 100%);
+    background: #52796F;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(181, 148, 16, 0.35);
+    box-shadow: 0 6px 16px rgba(132, 169, 140, 0.35);
 }
 
 .btn-invite:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(181, 148, 16, 0.2);
+    box-shadow: 0 2px 6px rgba(132, 169, 140, 0.2);
 }
 
 .detail-actions {

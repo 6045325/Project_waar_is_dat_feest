@@ -551,31 +551,31 @@ function openDetailModal(id) {
                     
                     <div class="detail-info-grid">
                         <div class="detail-info-item">
-                            <span class="detail-label">📅 Datum:</span>
+                            <span class="detail-label"><i data-lucide="calendar-days"></i> Datum:</span>
                             <span class="detail-value">${escapeHtml(activiteit.activiteit_datum)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">⏰ Tijd:</span>
+                            <span class="detail-label"><i data-lucide="clock-10"></i> Tijd:</span>
                             <span class="detail-value">${escapeHtml(activiteit.activiteit_tijd)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">📍 Locatie:</span>
+                            <span class="detail-label"><i data-lucide="map-pin"></i> Locatie:</span>
                             <span class="detail-value">${escapeHtml(activiteit.activiteit_locatie)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">🎪 Soort:</span>
+                            <span class="detail-label">  <i data-lucide="flame-kindling"></i> Soort:</span>
                             <span class="detail-value">${escapeHtml(activiteit.soort_activiteit)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">📊 Status:</span>
+                            <span class="detail-label"><i data-lucide="chart-column"></i> Status:</span>
                             <span class="detail-value status ${escapeHtml(activiteit.activiteit_status)}">${escapeHtml(activiteit.activiteit_status)}</span>
                         </div>
-            `;
-            
+            `   ;
+          
             if (activiteit.lat && activiteit.lng) {
                 html += `
                         <div class="detail-info-item">
-                            <span class="detail-label">🗺️ Coördinaten:</span>
+                            <span class="detail-label"><i data-lucide="axis-3d"></i> Coördinaten:</span>
                             <span class="detail-value">${(Math.round(activiteit.lat * 10000) / 10000)}, ${(Math.round(activiteit.lng * 10000) / 10000)}</span>
                         </div>
                 `;
@@ -636,6 +636,11 @@ function openDetailModal(id) {
             detailContent.innerHTML = html;
             detailModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Initialize icons for newly added content
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         } else {
             alert('Fout bij ophalen activiteit: ' + (data.error || 'Onbekende fout'));
         }
@@ -670,7 +675,31 @@ function inviteGuest(event, activityId) {
     alert(`Uitnodiging verzonden naar ${email}`);
     emailInput.value = '';
 }
+
 </script>
 
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+// Initialize icons when DOM is ready
+function initializeIcons() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', initializeIcons);
+
+// Also call after detail modal content is loaded
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+    return originalFetch.apply(this, args).then(response => {
+        response.clone().json().then(() => {
+            initializeIcons();
+        }).catch(() => {});
+        return response;
+    });
+};
+</script>
 </body>
 </html>
