@@ -4,7 +4,7 @@
 * {
     margin: 0;
     padding: 0;
-  
+    box-sizing: border-box;
 }
 
 h1 a {
@@ -1742,9 +1742,14 @@ h1 {
 
 /* ====================== SCROLLBAR STYLING ====================== */
 
+html, body {
+    overflow-x: hidden;
+}
+
 /* Webkit browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
     width: 12px;
+    height: 0;
 }
 
 ::-webkit-scrollbar-track {
