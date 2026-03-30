@@ -512,21 +512,55 @@ h1 a {
 /* Content */
 
 #Index-page .content{
-    padding:60px 30px;
-    max-width:800px;
-    margin:0 auto;
-    text-align:left; /* dit is belangrijk */
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+    background: linear-gradient(180deg, #CAD2C5 0%, rgba(202, 210, 197, 0.9) 50%, rgba(184, 198, 183, 0.8) 100%);
+    position: relative;
 }
 
+#Index-page .content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #84A98C, transparent);
+    border-radius: 2px;
+}
+
+#Index-page .content > p:first-child {
+    font-size: 1.15em;
+    color: #254F52;
+    font-weight: 500;
+    line-height: 1.8;
+    margin-bottom: 45px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid #84A98C;
+}
 
 #Index-page .content h2{
-    margin-top:40px;
-    margin-bottom:10px;
+    margin-top: 45px;
+    margin-bottom: 15px;
+    font-size: 1.55em;
+    color: #254F52;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 #Index-page .content p{
-    margin-bottom:25px;
-    line-height:1.7;
+    margin-bottom: 28px;
+    line-height: 1.8;
+    color: #2F3E46;
+    font-size: 1.05em;
+}
+
+#Index-page .content p strong {
+    color: #254F52;
+    font-weight: 700;
 }
 
 /* Card section */
@@ -776,6 +810,21 @@ h1 a {
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+    #Index-page .content {
+        padding: 60px 30px;
+        margin: 30px 0;
+    }
+
+    #Index-page .content h2 {
+        font-size: 1.35em;
+        margin-top: 35px;
+    }
+
+    #Index-page .content p {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
     #Index-page .card-section {
         padding: 150px 40px;
     }
@@ -807,6 +856,34 @@ h1 a {
 }
 
 @media (max-width: 480px) {
+    #Index-page .content {
+        padding: 40px 20px;
+        margin: 20px 0;
+    }
+
+    #Index-page .content::before {
+        width: 60px;
+        height: 3px;
+    }
+
+    #Index-page .content > p:first-child {
+        font-size: 1em;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+
+    #Index-page .content h2 {
+        font-size: 1.25em;
+        margin-top: 30px;
+        margin-bottom: 12px;
+    }
+
+    #Index-page .content p {
+        font-size: 0.95em;
+        margin-bottom: 18px;
+        line-height: 1.6;
+    }
+
     #Index-page .card-section {
         padding: 120px 20px;
     }
