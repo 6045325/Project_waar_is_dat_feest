@@ -530,7 +530,6 @@ h1 a {
 }
 
 /* Card section */
-
 #Index-page .card-section{
     background: linear-gradient(
         to bottom,
@@ -543,40 +542,170 @@ h1 a {
         #B7C6B7 90%,
         #CAD2C5 100%
     );
-    padding:200px 80px;
+    padding: 200px 80px;
 }
 
 #Index-page .card-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-    max-width:1100px;
-    margin:auto;
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    max-width: 1100px;
+    margin: auto;
+    position: relative;
+}
+
+#Index-page .card-grid .card{
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-right: 30px;
+    background: #a4b9a4;
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.3s ease;
+    border: 1px solid #84A98C;
+    color: #CAD2C5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
 }
 
 @media (min-width:600px){
-    #Index-page .card-grid{
-        grid-template-columns:repeat(2,1fr);
+    #Index-page .card-grid .card{
+        max-width: 100%;
     }
 }
 
 @media (max-width:599px){
-    #Index-page .card-grid{
-        grid-template-columns:1fr;
+    #Index-page .card-grid .card{
+        margin-right: 0;
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 }
 
-#Index-page .card{
-    background-color:#52796F;
-    border-radius:20px;
-    overflow:hidden;
-    transition:transform 0.3s ease;
+/* Card header */
+#Index-page .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    grid-column: 1 / -1;
 }
 
-#Index-page .card:hover{
-    transform:scale(1.05);
+#Index-page .card-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: #3c5637;
 }
 
+/* Status badge */
+#Index-page .status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Status colors */
+#Index-page .status.actief {
+    background: #28a745;
+}
+
+#Index-page .status.inactief {
+    background: #dc3545;
+}
+
+#Index-page .status.gepland {
+    background: #ffc107;
+    color: #000;
+}
+
+#Index-page .status.onbekend {
+    background: #6c757d;
+}
+
+/* Card left side (content) */
+#Index-page .card-left {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card right side (image) */
+#Index-page .card-right {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+/* Card image */
+#Index-page .card-image {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #84A98C;
+}
+
+#Index-page .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    background-color: #1f3b4a;
+}
+
+/* No image placeholder */
+#Index-page .no-image {
+    width: 100%;
+    height: 200px;
+    background: #52796F;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #CAD2C5;
+    font-style: italic;
+    border: 1px solid #84A98C;
+}
+
+/* Description */
+#Index-page .beschrijving {
+    margin: 15px 0;
+    color: #3c5637;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Card info */
+#Index-page .card-info {
+    margin: 15px 0;
+}
+
+#Index-page .card-info p {
+    margin: 5px 0;
+    color: #3c5637;
+    font-size: 14px;
+}
+
+#Index-page .card-info strong {
+    color: #254F52;
+}
+
+/* Card footer */
+#Index-page .card-footer {
+    margin-top: 15px;
+}
+
+#Index-page .card-footer small {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Remove old conflicting styles */
 #Index-page .card img{
     width:100%;
     display:block;
@@ -585,22 +714,120 @@ h1 a {
 #Index-page .card-content{
     padding:15px;
     color:#CAD2C5;
-    text-align:center;
+    text-align:left;
 }
 
 /* Footer */
-
 #Index-page .footer{
     background-color:#2F3E46;
     height:80px;
     margin-top:170px;
+    position: relative;
 }
 
-/* Mobile */
+#Index-page .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #84A98C, #52796F, #84A98C);
+}
 
-@media (max-width:600px){
-    #Index-page .hero h2{
-        font-size:32px;
+/* Loading animation for cards */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#Index-page .card-grid .card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Smooth focus states */
+#Index-page .card:focus-within {
+    outline: 2px solid #84A98C;
+    outline-offset: 4px;
+}
+
+/* Better text contrast */
+#Index-page .card strong {
+    font-weight: 600;
+}
+
+/* Subtle loading state */
+#Index-page .card-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    #Index-page .card-section {
+        padding: 150px 40px;
+    }
+
+    #Index-page .card-grid .card {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    #Index-page .card-header h2 {
+        font-size: 20px;
+    }
+
+    #Index-page .beschrijving {
+        font-size: 14px;
+    }
+
+    #Index-page .card-info p {
+        font-size: 13px;
+    }
+
+    #Index-page .card-image {
+        min-height: 150px;
+    }
+
+    #Index-page .no-image {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    #Index-page .card-section {
+        padding: 120px 20px;
+    }
+
+    #Index-page .card-grid .card {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    #Index-page .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    #Index-page .card-header h2 {
+        font-size: 18px;
+    }
+
+    #Index-page .status {
+        align-self: flex-end;
     }
 }
 
@@ -701,8 +928,7 @@ h1 {
     background: #f4f9f4;
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     border: 1px solid #84A98C;
     color: #CAD2C5;
     display: grid;
@@ -712,8 +938,6 @@ h1 {
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
 
 /* Header */
