@@ -4,7 +4,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 h1 a {
@@ -924,6 +923,7 @@ h1 a {
     background-color: #CAD2C5;
     color: #2F3E46;
     padding-top: 0; /* no need for extra space */
+    
 }
 
 /* NAVBAR */
@@ -1002,6 +1002,7 @@ h1 {
 
 /* Card styling */
 .card {
+    
     background: #f4f9f4;
     border-radius: 16px;
     padding: 24px;
@@ -1012,10 +1013,9 @@ h1 {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     align-items: start;
+
 }
 
-.card:hover {
-}
 
 /* Header */
 .card-header {
