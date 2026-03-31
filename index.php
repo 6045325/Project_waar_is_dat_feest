@@ -136,6 +136,14 @@ $activiteiten = $manager->getAllActiviteiten();
 
             function next() { showSlide(currentIndex + 1); }
 
+            // Make cards clickable
+            slides?.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    window.location.href = 'activiteiten.php';
+                });
+            });
+
             // Auto-play every 7 seconds
             setInterval(next, 7000);
 
