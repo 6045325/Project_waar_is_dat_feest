@@ -36,7 +36,7 @@ $searchTerm = $_GET['search'] ?? '';
     <title>Activiteiten</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Fredoka&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -196,35 +196,39 @@ $searchTerm = $_GET['search'] ?? '';
             <span class="close">&times;</span>
         </div>
         <form id="add-activity-form" class="activity-form">
-            <div class="form-group">
-                <label for="titel">Titel *</label>
-                <input type="text" id="titel" name="titel" required>
-            </div>
-
-            <div class="form-group">
-                <label for="beschrijving">Beschrijving *</label>
-                <textarea id="beschrijving" name="beschrijving" rows="4" required></textarea>
-            </div>
-
-            <div class="form-row">
+            <div class="form-section">
                 <div class="form-group">
-                    <label for="datum">Datum *</label>
+                    <label for="titel"><i data-lucide="pencil"></i> Titel *</label>
+                    <input type="text" id="titel" name="titel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="beschrijving"><i data-lucide="file-text"></i> Beschrijving *</label>
+                    <textarea id="beschrijving" name="beschrijving" rows="4" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="datum"><i data-lucide="calendar-days"></i> Datum *</label>
                     <input type="date" id="datum" name="datum" required>
                 </div>
                 <div class="form-group">
-                    <label for="tijd">Tijd *</label>
+                    <label for="tijd"><i data-lucide="clock-10"></i> Tijd *</label>
                     <input type="time" id="tijd" name="tijd" required>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="locatie">Locatie *</label>
-                <input type="text" id="locatie" name="locatie" required placeholder="bijv. Amsterdam, Rotterdam">
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="locatie"><i data-lucide="map-pin"></i> Locatie *</label>
+                    <input type="text" id="locatie" name="locatie" required placeholder="bijv. Amsterdam, Rotterdam">
+                </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-grid">
                 <div class="form-group">
-                    <label for="soort">Soort Activiteit</label>
+                    <label for="soort"><i data-lucide="flame-kindling"></i> Soort Activiteit</label>
                     <select id="soort" name="soort">
                         <option value="Festival">Festival</option>
                         <option value="Concert">Concert</option>
@@ -235,7 +239,7 @@ $searchTerm = $_GET['search'] ?? '';
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status"><i data-lucide="chart-column"></i> Status</label>
                     <select id="status" name="status">
                         <option value="gepland">Gepland</option>
                         <option value="actief">Actief</option>
@@ -244,14 +248,16 @@ $searchTerm = $_GET['search'] ?? '';
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="image_url">Afbeelding URL</label>
-                <input type="url" id="image_url" name="image_url" placeholder="https://example.com/afbeelding.jpg">
-            </div>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="image_url"><i data-lucide="image"></i> Afbeelding URL</label>
+                    <input type="url" id="image_url" name="image_url" placeholder="https://example.com/afbeelding.jpg">
+                </div>
 
-            <div class="form-group">
-                <label for="opmerkingen">Opmerkingen</label>
-                <textarea id="opmerkingen" name="opmerkingen" rows="2" placeholder="Optionele opmerkingen"></textarea>
+                <div class="form-group">
+                    <label for="opmerkingen"><i data-lucide="message-square"></i> Opmerkingen</label>
+                    <textarea id="opmerkingen" name="opmerkingen" rows="2" placeholder="Optionele opmerkingen"></textarea>
+                </div>
             </div>
 
             <div class="form-actions">
@@ -271,35 +277,39 @@ $searchTerm = $_GET['search'] ?? '';
         </div>
         <form id="edit-activity-form" class="activity-form">
             <input type="hidden" id="edit-id" name="id">
-            <div class="form-group">
-                <label for="edit-titel">Titel *</label>
-                <input type="text" id="edit-titel" name="titel" required>
-            </div>
-
-            <div class="form-group">
-                <label for="edit-beschrijving">Beschrijving *</label>
-                <textarea id="edit-beschrijving" name="beschrijving" rows="4" required></textarea>
-            </div>
-
-            <div class="form-row">
+            <div class="form-section">
                 <div class="form-group">
-                    <label for="edit-datum">Datum *</label>
+                    <label for="edit-titel"><i data-lucide="pencil"></i> Titel *</label>
+                    <input type="text" id="edit-titel" name="titel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-beschrijving"><i data-lucide="file-text"></i> Beschrijving *</label>
+                    <textarea id="edit-beschrijving" name="beschrijving" rows="4" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="edit-datum"><i data-lucide="calendar-days"></i> Datum *</label>
                     <input type="date" id="edit-datum" name="datum" required>
                 </div>
                 <div class="form-group">
-                    <label for="edit-tijd">Tijd *</label>
+                    <label for="edit-tijd"><i data-lucide="clock-10"></i> Tijd *</label>
                     <input type="time" id="edit-tijd" name="tijd" required>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="edit-locatie">Locatie *</label>
-                <input type="text" id="edit-locatie" name="locatie" required placeholder="bijv. Amsterdam, Rotterdam">
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="edit-locatie"><i data-lucide="map-pin"></i> Locatie *</label>
+                    <input type="text" id="edit-locatie" name="locatie" required placeholder="bijv. Amsterdam, Rotterdam">
+                </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-grid">
                 <div class="form-group">
-                    <label for="edit-soort">Soort Activiteit</label>
+                    <label for="edit-soort"><i data-lucide="flame-kindling"></i> Soort Activiteit</label>
                     <select id="edit-soort" name="soort">
                         <option value="Festival">Festival</option>
                         <option value="Concert">Concert</option>
@@ -310,7 +320,7 @@ $searchTerm = $_GET['search'] ?? '';
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="edit-status">Status</label>
+                    <label for="edit-status"><i data-lucide="chart-column"></i> Status</label>
                     <select id="edit-status" name="status">
                         <option value="gepland">Gepland</option>
                         <option value="actief">Actief</option>
@@ -319,14 +329,16 @@ $searchTerm = $_GET['search'] ?? '';
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="edit-image_url">Afbeelding URL</label>
-                <input type="url" id="edit-image_url" name="image_url" placeholder="https://example.com/afbeelding.jpg">
-            </div>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="edit-image_url"><i data-lucide="image"></i> Afbeelding URL</label>
+                    <input type="url" id="edit-image_url" name="image_url" placeholder="https://example.com/afbeelding.jpg">
+                </div>
 
-            <div class="form-group">
-                <label for="edit-opmerkingen">Opmerkingen</label>
-                <textarea id="edit-opmerkingen" name="opmerkingen" rows="2" placeholder="Optionele opmerkingen"></textarea>
+                <div class="form-group">
+                    <label for="edit-opmerkingen"><i data-lucide="message-square"></i> Opmerkingen</label>
+                    <textarea id="edit-opmerkingen" name="opmerkingen" rows="2" placeholder="Optionele opmerkingen"></textarea>
+                </div>
             </div>
 
             <div class="form-actions">
@@ -368,6 +380,10 @@ const editForm = document.getElementById('edit-activity-form');
 addBtn.onclick = function() {
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    // Initialize icons for the modal
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 }
 
 // Modal sluiten functies
@@ -492,6 +508,11 @@ function editActiviteit(id) {
             // Open modal
             editModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Initialize icons for the modal
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         } else {
             alert('Fout bij ophalen activiteit: ' + (data.error || 'Onbekende fout'));
         }
@@ -551,31 +572,31 @@ function openDetailModal(id) {
                     
                     <div class="detail-info-grid">
                         <div class="detail-info-item">
-                            <span class="detail-label">📅 Datum:</span>
+                            <span class="detail-label"><i data-lucide="calendar-days"></i> Datum:</span>
                             <span class="detail-value">${escapeHtml(activiteit.activiteit_datum)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">⏰ Tijd:</span>
+                            <span class="detail-label"><i data-lucide="clock-10"></i> Tijd:</span>
                             <span class="detail-value">${escapeHtml(activiteit.activiteit_tijd)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">📍 Locatie:</span>
+                            <span class="detail-label"><i data-lucide="map-pin"></i> Locatie:</span>
                             <span class="detail-value">${escapeHtml(activiteit.activiteit_locatie)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">🎪 Soort:</span>
+                            <span class="detail-label">  <i data-lucide="flame-kindling"></i> Soort:</span>
                             <span class="detail-value">${escapeHtml(activiteit.soort_activiteit)}</span>
                         </div>
                         <div class="detail-info-item">
-                            <span class="detail-label">📊 Status:</span>
+                            <span class="detail-label"><i data-lucide="chart-column"></i> Status:</span>
                             <span class="detail-value status ${escapeHtml(activiteit.activiteit_status)}">${escapeHtml(activiteit.activiteit_status)}</span>
                         </div>
-            `;
-            
+            `   ;
+          
             if (activiteit.lat && activiteit.lng) {
                 html += `
                         <div class="detail-info-item">
-                            <span class="detail-label">🗺️ Coördinaten:</span>
+                            <span class="detail-label"><i data-lucide="axis-3d"></i> Coördinaten:</span>
                             <span class="detail-value">${(Math.round(activiteit.lat * 10000) / 10000)}, ${(Math.round(activiteit.lng * 10000) / 10000)}</span>
                         </div>
                 `;
@@ -636,6 +657,11 @@ function openDetailModal(id) {
             detailContent.innerHTML = html;
             detailModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            
+            // Initialize icons for newly added content
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         } else {
             alert('Fout bij ophalen activiteit: ' + (data.error || 'Onbekende fout'));
         }
@@ -670,7 +696,31 @@ function inviteGuest(event, activityId) {
     alert(`Uitnodiging verzonden naar ${email}`);
     emailInput.value = '';
 }
+
 </script>
 
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+// Initialize icons when DOM is ready
+function initializeIcons() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', initializeIcons);
+
+// Also call after detail modal content is loaded
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+    return originalFetch.apply(this, args).then(response => {
+        response.clone().json().then(() => {
+            initializeIcons();
+        }).catch(() => {});
+        return response;
+    });
+};
+</script>
 </body>
 </html>

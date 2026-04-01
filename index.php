@@ -1,28 +1,9 @@
 <?php
 $title = "welcome";
 
-$activiteiten = [
-    [
-        "title" => "Surfing",
-        "image" => "images/placeholder.jpg",
-        "text"  => "Learn how to surf on the beautiful beach."
-    ],
-    [
-        "title" => "Beach Volleyball",
-        "image" => "images/placeholder.jpg",
-        "text"  => "Play volleyball with friends on the sand."
-    ],
-    [
-        "title" => "Boat Tour",
-        "image" => "images/placeholder.jpg",
-        "text"  => "Enjoy a relaxing boat tour on the water."
-    ],
-    [
-        "title" => "Cycling",
-        "image" => "images/placeholder.jpg",
-        "text"  => "Explore the dunes with a cycling route."
-    ]
-];
+require_once 'classes/activiteitmanager.php';
+$manager = new ActiviteitenManager();
+$activiteiten = $manager->getAllActiviteiten();
 ?>
 
 <!DOCTYPE html>
@@ -81,23 +62,95 @@ $activiteiten = [
 
     <!-- Cards -->
     <div class="card-section">
-        <div class="card-grid">
-
-            <?php foreach ($activiteiten as $activiteit): ?>
-
-                <div class="card">
-                    <img src="<?php echo $activiteit['image']; ?>" alt="<?php echo $activiteit['title']; ?>">
-
-                    <div class="card-content">
-                        <h3><?php echo $activiteit['title']; ?></h3>
-                        <p><?php echo $activiteit['text']; ?></p>
-                    </div>
+        <div class="card-grid" id="activitySlider">
+            <?php if (empty($activiteiten)): ?>
+                <div class="no-results">
+                    <p>Geen activiteiten gevonden</p>
                 </div>
+            <?php else: ?>
+                <?php foreach ($activiteiten as $a): ?>
+                    <div class="card" data-slide>
+                        <div class="card-left">
+                            <div class="card-header">
+                                <h2><?= htmlspecialchars($a['activiteit_titel'] ?? $a['title'] ?? 'Onbekende activiteit') ?></h2>
+                                <span class="status <?= htmlspecialchars($a['activiteit_status'] ?? 'onbekend') ?>">
+                                    <?= htmlspecialchars($a['activiteit_status'] ?? 'onbekend') ?>
+                                </span>
+                            </div>
 
-            <?php endforeach; ?>
+                            <div class="card-content">
+                                <p class="beschrijving">
+                                    <?= htmlspecialchars($a['activiteit_beschrijving'] ?? $a['text'] ?? 'Geen beschrijving beschikbaar') ?>
+                                </p>
 
+                                <div class="card-info">
+                                    <p><strong>Datum:</strong> <?= htmlspecialchars($a['activiteit_datum'] ?? '-') ?></p>
+                                    <p><strong>Tijd:</strong> <?= htmlspecialchars($a['activiteit_tijd'] ?? '-') ?></p>
+                                    <p><strong>Locatie:</strong> <?= htmlspecialchars($a['activiteit_locatie'] ?? '-') ?></p>
+                                    <p><strong>Soort:</strong> <?= htmlspecialchars($a['soort_activiteit'] ?? '-') ?></p>
+                                </div>
+
+                                <div class="card-footer">
+                                    <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-right">
+                            <?php if (!empty($a['activiteit_afbeelding_url'])): ?>
+                                <div class="card-image">
+                                    <img src="<?= htmlspecialchars($a['activiteit_afbeelding_url']) ?>" alt="<?= htmlspecialchars($a['activiteit_titel'] ?? 'Activiteit') ?>">
+                                </div>
+                            <?php else: ?>
+                                <div class="no-image">
+                                    <p>Geen afbeelding beschikbaar</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
+
+    <script>
+        (function() {
+            const slider = document.getElementById('activitySlider');
+            const slides = slider?.querySelectorAll('[data-slide]');
+            let currentIndex = 0;
+
+            function getCardWidth() {
+                if (!slides || slides.length === 0) return 0;
+                const card = slides[0];
+                const style = window.getComputedStyle(card);
+                return card.offsetWidth + parseFloat(style.marginRight || 0);
+            }
+
+            function showSlide(index) {
+                if (!slides || slides.length === 0) return;
+                currentIndex = (index + slides.length) % slides.length;
+                const cardWidth = getCardWidth();
+                const offset = currentIndex * cardWidth;
+                slider.scrollTo({ left: offset, behavior: 'smooth' });
+            }
+
+            function next() { showSlide(currentIndex + 1); }
+
+            // Make cards clickable
+            slides?.forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    window.location.href = 'activiteiten.php';
+                });
+            });
+
+            // Auto-play every 7 seconds
+            setInterval(next, 7000);
+
+            window.addEventListener('resize', () => showSlide(currentIndex));
+            showSlide(0);
+        })();
+    </script>
 
     <!-- Footer -->
     <div class="footer"></div>
