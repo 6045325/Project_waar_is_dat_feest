@@ -132,7 +132,7 @@ class ActiviteitenManager {
     }
 
     #R (Read) - activiteit binnen X km
-    public function getActiviteitenWithinDistance(float $lat, float $lng, float $maxDistanceKm = 50): array {
+    public function getActiviteitenWithinDistance(float $lat, float $lng, float $maxDistanceKm = 50): array { 
         $sql = "
             SELECT *,
             (6371 * ACOS(

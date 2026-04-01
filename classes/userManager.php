@@ -3,8 +3,17 @@ declare(strict_types=1);
 
 require_once 'connection.php';
 require_once 'User.php';
+interface UserManagerInterface
+{
+    public function verifyUser(string $username, string $password): ?User;
 
-class UserManager extends Database
+    public function getAllUsers(): array;
+
+    public function deleteUser(int $userId): bool;
+
+    public function addUser(string $username, string $password): ?User;
+}
+class UserManager implements UserManagerInterface
 {
     private PDO $db;
 
