@@ -1,10 +1,53 @@
 <?php
+declare(strict_types=1);
 
 use BcMath\Number;
 
 require_once "connection.php";
 
-class ActiviteitenManager {
+interface ActiviteitenManagerInterface {
+    public function getCoordinatesFromAddress(string $address): ?array;
+    
+    public function addVacature(
+        string $activiteit_titel,
+        string $activiteit_beschrijving,
+        string $activiteit_datum,
+        string $activiteit_tijd,
+        string $activiteit_locatie,
+        string $soort_activiteit,
+        string $activiteit_status,
+        string $activiteit_opmerkingen,
+        int $user_id,
+        float $lat,
+        float $lng,
+        string $activiteit_afbeelding_url = ''
+    ): bool;
+    
+    public function getAllActiviteiten(): array;
+    
+    public function getActiviteitById(int $id): ?array;
+    
+    public function getActiviteitenWithinDistance(float $lat, float $lng, float $maxDistanceKm = 50): array;
+    
+    public function getAllActiviteitenSortedByDate(): array;
+    
+    public function updateActiviteit(
+        int $activiteit_id,
+        string $activiteit_titel,
+        string $activiteit_beschrijving,
+        string $activiteit_datum,
+        string $activiteit_tijd,
+        string $activiteit_locatie,
+        string $soort_activiteit,
+        string $activiteit_status,
+        string $activiteit_opmerkingen,
+        string $activiteit_afbeelding_url = ''
+    ): bool;
+    
+    public function deleteVacature(int $id): bool;
+}
+
+class ActiviteitenManager implements ActiviteitenManagerInterface {
     private PDO $db;
 
     public function __construct() {
@@ -153,8 +196,9 @@ class ActiviteitenManager {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllActiviteitenSortedByDate() {
+    public function getAllActiviteitenSortedByDate(): array {
         $stmt = $this->db->prepare("SELECT * FROM activiteit ORDER BY activiteit_datum DESC");
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

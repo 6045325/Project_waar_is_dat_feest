@@ -155,6 +155,9 @@ $activiteiten = $manager->getAllActiviteiten();
     <!-- Footer -->
     <div class="footer"></div>
 
+    <!-- Load JS modules -->
+    <script type="module" src="js/main.js"></script>
+
 </body>
 
 </html>

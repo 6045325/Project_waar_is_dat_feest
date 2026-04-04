@@ -78,7 +78,7 @@ $searchTerm = $_GET['search'] ?? '';
             <!-- Afstand Filter -->
             <div class="control-group">
                 <label for="distanceSelect">Afstand:</label>
-                <select name="distance" id="distanceSelect" class="distance-select" onchange="this.form.submit()">
+                <select name="distance" id="distanceSelect" class="distance-select">
                     <option value="" <?= ($filterDistance === null) ? 'selected' : '' ?>>Alle activiteiten</option>
                     <option value="10" <?= ($filterDistance === 10) ? 'selected' : '' ?>>Tot 10 km</option>
                     <option value="25" <?= ($filterDistance === 25) ? 'selected' : '' ?>>Tot 25 km</option>
@@ -698,6 +698,10 @@ function inviteGuest(event, activityId) {
 }
 
 </script>
+
+<!-- Load JS modules -->
+<script type="module" src="js/main.js"></script>
+</body>
 
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
