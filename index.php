@@ -16,6 +16,9 @@ $activiteiten = $manager->getAllActiviteiten();
     <!-- Voeg dit in je <head> -->
 <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Fredoka&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>    <script src="js/weather.js"></script>
 </head>
 
 <body id="Index-page">
@@ -69,7 +72,7 @@ $activiteiten = $manager->getAllActiviteiten();
                 </div>
             <?php else: ?>
                 <?php foreach ($activiteiten as $a): ?>
-                    <div class="card" data-slide>
+                    <div class="card" data-slide data-activity-id="<?= $a['activiteit_id'] ?>" data-lat="<?= $a['lat'] ?? '' ?>" data-lng="<?= $a['lng'] ?? '' ?>">
                         <div class="card-left">
                             <div class="card-header">
                                 <h2><?= htmlspecialchars($a['activiteit_titel'] ?? $a['title'] ?? 'Onbekende activiteit') ?></h2>
@@ -93,6 +96,9 @@ $activiteiten = $manager->getAllActiviteiten();
                                 <div class="card-footer">
                                     <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
                                 </div>
+
+                                <!-- Weather Widget -->
+                                <div class="weather-widget"></div>
                             </div>
                         </div>
 

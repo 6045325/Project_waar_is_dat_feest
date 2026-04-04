@@ -1,3 +1,267 @@
+/* ====================== MAP WIDGET ====================== */
+
+#activity-map {
+    width: 100%;
+    height: 500px;
+    border-radius: 12px;
+    border: 2px solid #84A98C;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    z-index: 1;
+}
+
+.map-container {
+    background: #f4f9f4;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.map-container h2 {
+    padding: 20px;
+    margin: 0;
+    color: #254F52;
+    font-size: 1.5em;
+    background: linear-gradient(135deg, #d4e8e0, #e6f5f0);
+    border-bottom: 2px solid #84A98C;
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+    font-family: 'Montserrat', sans-serif;
+    background: #e6f5f0;
+}
+
+.leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #2F3E46 !important;
+    font-size: 11px !important;
+}
+
+.leaflet-popup-content-wrapper {
+    background: #ffffff;
+    border: 2px solid #84A98C;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+    margin: 0;
+    width: auto !important;
+}
+
+.map-popup {
+    padding: 12px;
+    text-align: center;
+}
+
+.map-popup strong {
+    display: block;
+    color: #254F52;
+    font-size: 1.1em;
+    margin-bottom: 6px;
+}
+
+.map-popup p {
+    margin: 4px 0;
+    color: #3c5637;
+    font-size: 0.95em;
+}
+
+.popup-btn {
+    background: #84A98C;
+    color: #1b1b1a;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.3s ease;
+}
+
+.popup-btn:hover {
+    background: #52796F;
+}
+
+.leaflet-control-zoom {
+    border: 2px solid #84A98C !important;
+    border-radius: 6px !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    background: #ffffff !important;
+    color: #254F52 !important;
+    font-weight: bold !important;
+    border: none !important;
+    border-bottom: 1px solid #84A98C !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+    background: #e6f5f0 !important;
+}
+
+.leaflet-control-zoom-out {
+    border-bottom: none !important;
+}
+
+/* Mobile responsiveness for map */
+@media (max-width: 768px) {
+    #activity-map {
+        height: 350px;
+        margin-bottom: 20px;
+    }
+
+    .map-container h2 {
+        padding: 15px;
+        font-size: 1.3em;
+    }
+
+    .map-popup {
+        padding: 10px;
+    }
+
+    .popup-btn {
+        padding: 6px 12px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    #activity-map {
+        height: 300px;
+        margin-bottom: 15px;
+    }
+
+    .leaflet-popup-content-wrapper {
+        border-radius: 6px;
+    }
+}
+
+/* ====================== WEATHER WIDGET ====================== */
+
+.weather-widget {
+    margin-top: 16px;
+    padding: 12px;
+    background: linear-gradient(135deg, #e8f4f0, #f0f8f6);
+    border-radius: 10px;
+    border: 1px solid #84A98C;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.weather-widget.weather-loaded {
+    background: linear-gradient(135deg, #d4e8e0, #e6f5f0);
+    box-shadow: 0 2px 8px rgba(132, 169, 140, 0.15);
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.weather-icon {
+    font-size: 2.5em;
+    line-height: 1;
+    min-width: 60px;
+    text-align: center;
+}
+
+.weather-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.weather-temp {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #254F52;
+    line-height: 1.2;
+}
+
+.weather-desc {
+    font-size: 0.95em;
+    color: #3c5637;
+    margin-bottom: 4px;
+}
+
+.weather-extra {
+    display: flex;
+    gap: 12px;
+    font-size: 0.85em;
+    color: #52796F;
+}
+
+.weather-humidity,
+.weather-wind {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.weather-error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #dc3545;
+    font-size: 0.95em;
+}
+
+.weather-error .weather-icon {
+    font-size: 2em;
+}
+
+.weather-error .weather-details {
+    flex: 1;
+}
+
+/* Loading state */
+.weather-widget.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: weatherLoading 1.5s infinite;
+}
+
+@keyframes weatherLoading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Mobile responsiveness for weather widget */
+@media (max-width: 768px) {
+    .weather-widget {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+        min-height: auto;
+    }
+
+    .weather-icon {
+        font-size: 2em;
+        min-width: auto;
+    }
+
+    .weather-temp {
+        font-size: 1.2em;
+    }
+
+    .weather-details {
+        text-align: center;
+    }
+
+    .weather-extra {
+        justify-content: center;
+    }
+}
+
 /* ================================== LOGIN pagina ====================================== */
 
 

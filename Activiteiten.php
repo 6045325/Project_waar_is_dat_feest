@@ -38,6 +38,11 @@ $searchTerm = $_GET['search'] ?? '';
 
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Pacifico&family=Fredoka&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet Map Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/map.js"></script>
 </head>
 <body>
 
@@ -49,6 +54,12 @@ $searchTerm = $_GET['search'] ?? '';
     <div class="page-header">
         <h1>Activiteiten</h1>
         <button id="add-activity-btn" class="btn-add">Nieuwe Activiteit Toevoegen</button>
+    </div>
+
+    <!-- Kaart Container -->
+    <div class="map-container">
+        <h2>📍 Activiteiten Kaart</h2>
+        <div id="activity-map"></div>
     </div>
 
     <!-- Filter & Zoek Controls -->
@@ -132,7 +143,7 @@ $searchTerm = $_GET['search'] ?? '';
                     }
                 }
         ?>
-            <div class="card" onclick="openDetailModal(<?= $a['activiteit_id'] ?>)" style="cursor: pointer;">
+            <div class="card" onclick="openDetailModal(<?= $a['activiteit_id'] ?>)" style="cursor: pointer;" data-activity-id="<?= $a['activiteit_id'] ?>" data-lat="<?= $a['lat'] ?? '' ?>" data-lng="<?= $a['lng'] ?? '' ?>">
                 <div class="card-left">
                     <div class="card-header">
                         <h2><?= htmlspecialchars($a['activiteit_titel']) ?></h2>
@@ -159,6 +170,9 @@ $searchTerm = $_GET['search'] ?? '';
                         <div class="card-footer">
                             <small><?= htmlspecialchars($a['activiteit_opmerkingen'] ?? '') ?></small>
                         </div>
+
+                        <!-- Weather Widget -->
+                        <div class="weather-widget"></div>
 
                         <div class="card-actions">
                             <a href="#" class="btn-edit" onclick="event.stopPropagation(); editActiviteit(<?= $a['activiteit_id'] ?>); return false;">Bewerken</a>
