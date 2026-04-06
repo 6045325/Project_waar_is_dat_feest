@@ -12,9 +12,6 @@ session_start();
     <title>Login / Signup</title>
     <link rel="stylesheet" href="css/style.css">
     <script type="module" src="js/main.js"></script>
-    <style>
-
-    </style>
 </head>
 
 <body id="login">

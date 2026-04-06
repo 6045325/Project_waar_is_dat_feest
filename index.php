@@ -119,45 +119,6 @@ $activiteiten = $manager->getAllActiviteiten();
         </div>
     </div>
 
-    <script>
-        (function() {
-            const slider = document.getElementById('activitySlider');
-            const slides = slider?.querySelectorAll('[data-slide]');
-            let currentIndex = 0;
-
-            function getCardWidth() {
-                if (!slides || slides.length === 0) return 0;
-                const card = slides[0];
-                const style = window.getComputedStyle(card);
-                return card.offsetWidth + parseFloat(style.marginRight || 0);
-            }
-
-            function showSlide(index) {
-                if (!slides || slides.length === 0) return;
-                currentIndex = (index + slides.length) % slides.length;
-                const cardWidth = getCardWidth();
-                const offset = currentIndex * cardWidth;
-                slider.scrollTo({ left: offset, behavior: 'smooth' });
-            }
-
-            function next() { showSlide(currentIndex + 1); }
-
-            // Make cards clickable
-            slides?.forEach(card => {
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', () => {
-                    window.location.href = 'activiteiten.php';
-                });
-            });
-
-            // Auto-play every 7 seconds
-            setInterval(next, 7000);
-
-            window.addEventListener('resize', () => showSlide(currentIndex));
-            showSlide(0);
-        })();
-    </script>
-
     <!-- Footer -->
     <div class="footer"></div>
 
